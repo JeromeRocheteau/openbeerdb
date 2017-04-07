@@ -1,0 +1,1 @@
+delete from breweries where id = ?

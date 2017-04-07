@@ -1,0 +1,1 @@
+insert into beers (name, brewery, abv) values (?,?,?)
