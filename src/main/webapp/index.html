@@ -14,7 +14,10 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/i18n/angular-locale_fr-fr.js"></script>
-  <body>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-chart.js/1.1.1/angular-chart.min.js"></script>
+  <script type="text/javascript" src="./index.js"></script>
+  <body ng-app="app" ng-controller="controller">
     <header>
       <div class="navbar navbar-default navbar-custom navbar-static-top">
         <div class="container">
@@ -33,5 +36,57 @@
         </div>
       </div>
     </header>
+    <section id="content" class="container">
+      <div class="row" style="margin-top:1em; margin-bottom:1em;">
+        <h2>
+          Tableau de bord
+          <small ng-if="controls.filtered === 0">Nombre de bières et degré moyen d'alcool par pays</small>
+          <small ng-if="controls.filtered === 1">Nombre de bières et degré moyen d'alcool par brasserie en {{controls.filters[0]}}</small>
+          <small ng-if="controls.filtered === 2">Degré d'alcool des bières de la brasserie {{controls.filters[1]}}</small>
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-md-6 table-responsive">
+          <table class="table table-bordered table-condensed">
+            <thead> 
+              <tr>
+                <th>nom du pays</th>
+                <th class="text-right">nombre de bières</th>
+                <th class="text-right">degré moyen d'alcool</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in items">
+                <td>{{item.label}}</td>
+                <td class="text-right">{{item.count}}</td>
+                <td class="text-right">{{item.average}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+          <canvas id="country-chart" class="chart chart-doughnut" chart-data="values" chart-labels="labels" chart-click="select"></canvas>
+          <form>
+            <div class="form-group">
+              <div class="btn-group btn-group-justified">
+                <label class="btn btn-default" for="counts" ng-class="{active:controls.view==='counts'}">
+                  <input type="radio" id="counts" name="controls.view" ng-model="controls.view" value="counts" style="visibility:hidden; width:0px;" >
+                  nombre de bières
+                </label>
+                <label class="btn btn-default" for="averages" ng-class="{active:controls.view==='averages'}">
+                  <input type="radio" id="averages" name="controls.view" ng-model="controls.view" value="averages" style="visibility:hidden; width:0px;" >
+                  degré moyen d'alcool
+                </label>
+              </div>
+            </div>
+            <div class="btn-group btn-group-justified" role="group">
+              <a role="button" class="btn btn-default" ng-class="{disabled:controls.filtered===0}" ng-click="clear()">
+                revenir au tableau de bord précédent
+              </a>
+            </div>
+          </form> 
+        </div>
+      </div>
+    </section>
   </body>
 </html>

@@ -42,8 +42,4 @@ public class Beer {
 		this.abv = abv;
 	}
 	
-	public String toJson() {
-		return "{id:" + id + ",brewery:" + brewery.toJson() + ",name:" + name + ",abv:" + abv + "}";
-	}
-	
 }

@@ -169,4 +169,40 @@
     <url-pattern>/beers/delete</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>stats-global</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.StatsGlobal</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/stats-global.sql</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>stats-local</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.StatsLocal</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/stats-local.sql</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>stats-initial</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.StatsLocal</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/stats-initial.sql</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>stats</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.Stats</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>stats</servlet-name>
+    <url-pattern>/stats</url-pattern>
+  </servlet-mapping>
+
 </web-app>

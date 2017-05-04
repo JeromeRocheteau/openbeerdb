@@ -52,8 +52,4 @@ public class Brewery {
 		this.country = country;
 	}
 	
-	public String toJson() {
-		return "{id:" + id + ",name:" + name + "," + (address == null ? "" : address) +",city:" + city + ",country:" + country + "}";
-	}
-	
 }
