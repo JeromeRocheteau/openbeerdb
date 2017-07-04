@@ -36,7 +36,7 @@ app.controller('controller', function ($scope, $http) {
 		if (beer) {
 			$scope.creating = false;
 			$scope.updating = true;
-			$scope.beer = beer;
+			$scope.beer = angular.copy(beer);
 		} else {
 			$scope.creating = true;
 			$scope.updating = false;
@@ -63,6 +63,7 @@ app.controller('controller', function ($scope, $http) {
 		$http({method:'POST',url:'./beers/update',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
 			init();
+			page();
 		}, function onError(response) {
 
 		}); 

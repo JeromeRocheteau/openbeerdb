@@ -35,7 +35,7 @@ app.controller('controller', function ($scope, $http) {
 		if (brewery) {
 			$scope.creating = false;
 			$scope.updating = true;
-			$scope.brewery = brewery;
+			$scope.brewery = angular.copy(brewery);
 		} else {
 			$scope.creating = true;
 			$scope.updating = false;  			
@@ -62,6 +62,7 @@ app.controller('controller', function ($scope, $http) {
 		$http({method:'POST',url:'./breweries/update',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
 			init();
+			page();
 		}, function onError(response) {
 
 		}); 
