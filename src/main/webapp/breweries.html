@@ -36,10 +36,10 @@
     </header>
     <div class="container">
       <section id="search" class="col-md-6">
-        <form class="form" role="form" name="form" ng-if="selected">
+        <form class="form ng-cloak" role="form" name="form" ng-show="selected">
           <fieldset>
-          <legend ng-if="creating">Édition d'une nouvelle brasserie</legend>
-          <legend ng-if="updating">Édition de la brasserie #{{brewery.id}}</legend>
+          <legend ng-show="creating">Édition d'une nouvelle brasserie</legend>
+          <legend ng-show="updating">Édition de la brasserie #{{brewery.id}}</legend>
             <div class="form-group">
               <label for="brewery.name">Nom de la brasserie</label>
               <input type="text" id="brewery.name" class="form-control" ng-model="brewery.name" placeholder="Nom" required ng-required="true" />
@@ -58,9 +58,9 @@
             </div>
             <div class="form-group pull-right">
                <button type="reset" class="btn btn-default" ng-click="clean()"><strong>Annuler</strong></button>
-               <button type="submit" class="btn btn-danger" ng-click="form.$valid && remove()" ng-disabled="form.$invalid" ng-if="updating"><strong>Supprimer</strong></button>
-               <button type="submit" class="btn" ng-click="form.$valid && update()" ng-disabled="form.$invalid" ng-if="updating"><strong>Modifier</strong></button>
-               <button type="submit" class="btn" ng-click="form.$valid && create()" ng-disabled="form.$invalid" ng-if="creating"><strong>Ajouter</strong></button>
+               <button type="submit" class="btn btn-danger" ng-click="form.$valid && remove()" ng-disabled="form.$invalid" ng-show="updating"><strong>Supprimer</strong></button>
+               <button type="submit" class="btn" ng-click="form.$valid && update()" ng-disabled="form.$invalid" ng-show="updating"><strong>Modifier</strong></button>
+               <button type="submit" class="btn" ng-click="form.$valid && create()" ng-disabled="form.$invalid" ng-show="creating"><strong>Ajouter</strong></button>
              </div>
           </fieldset>
         </form>
@@ -71,7 +71,7 @@
           <ul class="pager">
             <li class="previous"><a class="btn btn-default" ng-click="first()"><span aria-hidden="true" class="glyphicon glyphicon-step-backward"></span> </a></li>
             <li class="previous"><a class="btn btn-default" ng-click="prev()"><span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span></a></li>
-            <li ng-if="size > 0">{{(offset / length) + 1 | ceil}} / {{size / length | ceil}}</li>
+            <li ng-show="size > 0">{{(offset / length) + 1 | ceil}} / {{size / length | ceil}}</li>
             <li class="next"><a class="btn btn-default" ng-click="last()"><span aria-hidden="true" class="glyphicon glyphicon-step-forward"></span></a></li>
             <li class="next"><a class="btn btn-default" ng-click="next()"><span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span></a></li>
           </ul>
@@ -79,7 +79,7 @@
         <ul class="list-group" ng-repeat="brewery in breweries">
           <li class="list-group-item">
             <p class="list-group-item-heading">#{{brewery.id}} {{brewery.name}}</p>
-            <p class="list-group-item-text"><span ng-if="brewery.address">{{brewery.address}}, </span>{{brewery.city}}, {{brewery.country}}</p>
+            <p class="list-group-item-text"><span ng-show="brewery.address">{{brewery.address}}, </span>{{brewery.city}}, {{brewery.country}}</p>
             <p class="list-group-item-text text-right">
               <button type="button" class="btn btn-default" ng-click="select(brewery)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
             </p>

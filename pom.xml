@@ -18,9 +18,9 @@
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.1</version>
         <configuration>
-          <url>http://172.21.1.18/manager/text</url>
-          <username>i3user</username>
-          <password>in119</password>
+          <url>http://localhost:8080/manager/text</url>
+          <username>manager</username>
+          <password>script</password>
           <path>/${project.build.finalName}</path>
         </configuration>
       </plugin>

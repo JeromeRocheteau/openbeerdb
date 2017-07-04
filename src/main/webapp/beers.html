@@ -36,17 +36,17 @@
     </header>
     <div class="container">
       <section id="search" class="col-md-6">
-        <form class="form" role="form" name="form" ng-if="selected">
+        <form class="form ng-cloak" role="form" name="form" ng-show="selected">
           <fieldset>
-          <legend ng-if="creating">Édition d'une nouvelle bière</legend>
-          <legend ng-if="updating">Édition de la bière #{{beer.id}}</legend>
+          <legend ng-show="creating">Édition d'une nouvelle bière</legend>
+          <legend ng-show="updating">Édition de la bière #{{beer.id}}</legend>
             <div class="form-group">
               <label for="beer.name">Nom de la bière</label>
               <input type="text" id="beer.name" class="form-control" ng-model="beer.name" placeholder="Nom" required ng-required="true" />
             </div>
             <div class="form-group">
               <label for="beer.brewery">Brasserie</label>
-              <select id="beer.brewery" class="form-control" ng-model="beer.brewery" placeholder="Brasserie" required ng-required="true" ng-change="setBrewery(beer.brewery)" ng-options="brewery as brewery.name for brewery in breweries track by brewery.id">
+              <select id="beer.brewery" class="form-control" ng-model="beer.brewery" placeholder="Brasserie" required ng-required="true" ng-change="brewery(beer.brewery)" ng-options="brewery as brewery.name for brewery in breweries track by brewery.id">
               </select>
             </div>
             <div class="form-group">
@@ -55,9 +55,9 @@
             </div>
             <div class="form-group pull-right">
                <button type="reset" class="btn btn-default" ng-click="clean()"><strong>Annuler</strong></button>
-               <button type="submit" class="btn btn-danger" ng-click="form.$valid && remove()" ng-disabled="form.$invalid" ng-if="updating"><strong>Supprimer</strong></button>
-               <button type="submit" class="btn" ng-click="form.$valid && update()" ng-disabled="form.$invalid" ng-if="updating"><strong>Modifier</strong></button>
-               <button type="submit" class="btn" ng-click="form.$valid && create()" ng-disabled="form.$invalid" ng-if="creating"><strong>Ajouter</strong></button>
+               <button type="submit" class="btn btn-danger" ng-click="form.$valid && remove()" ng-disabled="form.$invalid" ng-show="updating"><strong>Supprimer</strong></button>
+               <button type="submit" class="btn" ng-click="form.$valid && update()" ng-disabled="form.$invalid" ng-show="updating"><strong>Modifier</strong></button>
+               <button type="submit" class="btn" ng-click="form.$valid && create()" ng-disabled="form.$invalid" ng-show="creating"><strong>Ajouter</strong></button>
              </div>
           </fieldset>
         </form>
@@ -68,7 +68,7 @@
           <ul class="pager">
             <li class="previous"><a class="btn btn-default" ng-click="first()"><span aria-hidden="true" class="glyphicon glyphicon-step-backward"></span> </a></li>
             <li class="previous"><a class="btn btn-default" ng-click="prev()"><span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span></a></li>
-            <li ng-if="size > 0">{{(offset / length) + 1 | ceil}} / {{size / length | ceil}}</li>
+            <li ng-show="size > 0">{{(offset / length) + 1 | ceil}} / {{size / length | ceil}}</li>
             <li class="next"><a class="btn btn-default" ng-click="last()"><span aria-hidden="true" class="glyphicon glyphicon-step-forward"></span></a></li>
             <li class="next"><a class="btn btn-default" ng-click="next()"><span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span></a></li>
           </ul>
@@ -78,7 +78,7 @@
             <span class="badge">{{beer.abv}}</span>
             <p class="list-group-item-heading">#{{beer.id}} {{beer.name}}</p>
             <p class="list-group-item-text">#{{beer.brewery.id}} {{beer.brewery.name}}</p>
-            <p class="list-group-item-text"><span ng-if="beer.brewery.address">{{beer.brewery.address}}, </span>{{beer.brewery.city}}, {{beer.brewery.country}}</p>
+            <p class="list-group-item-text"><span ng-show="beer.brewery.address">{{beer.brewery.address}}, </span>{{beer.brewery.city}}, {{beer.brewery.country}}</p>
             <p class="list-group-item-text text-right">
               <button type="button" class="btn btn-default" ng-click="select(beer)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
             </p>

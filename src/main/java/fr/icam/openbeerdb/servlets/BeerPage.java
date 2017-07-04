@@ -37,10 +37,10 @@ public class BeerPage extends JdbcQueryServlet<List<Beer>> {
 	protected List<Beer> doMap(HttpServletRequest request, ResultSet resultSet) throws Exception {
 		List<Beer> beers = new LinkedList<Beer>();
 		while (resultSet.next()) {
-			int beerId  = resultSet.getInt("beerId");
+			Integer beerId  = resultSet.getInt("beerId");
 			String beerName = resultSet.getString("beerName");
-			float abv = resultSet.getFloat("abv");
-			int breweryId = resultSet.getInt("breweryId");
+			Float abv = resultSet.getFloat("abv");
+			Integer breweryId = resultSet.getInt("breweryId");
 			String breweryName = resultSet.getString("breweryName");
 			String city = resultSet.getString("city");
 			String country = resultSet.getString("country");
@@ -48,17 +48,8 @@ public class BeerPage extends JdbcQueryServlet<List<Beer>> {
 			if (resultSet.wasNull()) {
 				address = null;
 			}
-			Brewery brewery = new Brewery();
-			brewery.setId(breweryId);
-			brewery.setName(breweryName);
-			brewery.setAddress(address);
-			brewery.setCity(city);
-			brewery.setCountry(country);
-			Beer beer = new Beer();
-			beer.setId(beerId);
-			beer.setBrewery(brewery);
-			beer.setName(beerName);
-			beer.setAbv(abv);
+			Brewery brewery = new Brewery(breweryId, breweryName, address, city, country);
+			Beer beer = new Beer(beerId, brewery, beerName, abv);
 			beers.add(beer);
 		}
 		return beers;

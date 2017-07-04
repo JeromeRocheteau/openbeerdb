@@ -2,19 +2,19 @@ package fr.icam.openbeerdb.entities;
 
 public class Beer {
 
-	private int id;
+	private Integer id;
 	
 	private Brewery brewery;
 	
 	private String name;
 	
-	private float abv;
+	private Float abv;
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -34,11 +34,19 @@ public class Beer {
 		this.name = name;
 	}
 
-	public float getAbv() {
+	public Float getAbv() {
 		return abv;
 	}
 
-	public void setAbv(float abv) {
+	public void setAbv(Float abv) {
+		this.abv = abv;
+	}
+
+	public Beer(Integer id, Brewery brewery, String name, Float abv) {
+		super();
+		this.id = id;
+		this.brewery = brewery;
+		this.name = name;
 		this.abv = abv;
 	}
 	

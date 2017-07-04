@@ -46,7 +46,7 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	$scope.create = function() {
-		var datacontent = "name=" + $scope.beer.name; 
+		var datacontent = "name=" + $scope.beer.name + "&abv=" + $scope.beer.abv + "&brewery=" + $scope.beer.brewery.id;
 		$http({method:'POST',url:'/openbeerdb/beers/create',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
 			init();
@@ -59,7 +59,7 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	$scope.update = function() {
-		var datacontent = "id=" + $scope.beer.id + "&name=" + $scope.beer.name + "&abv=" + $scope.beer.abv + "&brewery=" + $scope.brewery.id; 
+		var datacontent = "id=" + $scope.beer.id + "&name=" + $scope.beer.name + "&abv=" + $scope.beer.abv + "&brewery=" + $scope.beer.brewery.id; 
 		$http({method:'POST',url:'/openbeerdb/beers/update',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
 			init();
@@ -130,6 +130,10 @@ app.controller('controller', function ($scope, $http) {
 	$scope.last = function() {
 		$scope.offset = Math.floor(($scope.size - 1) / $scope.length) * $scope.length;
 		page();
+	}
+
+	$scope.brewery = function(brewery) {
+		$scope.beer.brewery = brewery;
 	}
 
 	init();

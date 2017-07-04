@@ -26,8 +26,8 @@ public class BreweryPage extends JdbcQueryServlet<List<Brewery>> {
 	
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
-		int offset = Integer.valueOf(request.getParameter("offset"));
-		int length = Integer.valueOf(request.getParameter("length"));
+		Integer offset = Integer.valueOf(request.getParameter("offset"));
+		Integer length = Integer.valueOf(request.getParameter("length"));
 		statement.setInt(1, offset);
 		statement.setInt(2, length);
 	}
@@ -36,7 +36,7 @@ public class BreweryPage extends JdbcQueryServlet<List<Brewery>> {
 	protected List<Brewery> doMap(HttpServletRequest request, ResultSet resultSet) throws Exception {
 		List<Brewery> breweries = new LinkedList<Brewery>();
 		while (resultSet.next()) {
-			int breweryId = resultSet.getInt("id");
+			Integer id = resultSet.getInt("id");
 			String name = resultSet.getString("name");
 			String city = resultSet.getString("city");
 			String country = resultSet.getString("country");
@@ -44,12 +44,7 @@ public class BreweryPage extends JdbcQueryServlet<List<Brewery>> {
 			if (resultSet.wasNull()) {
 				address = null;
 			}
-			Brewery brewery = new Brewery();
-			brewery.setId(breweryId);
-			brewery.setName(name);
-			brewery.setAddress(address);
-			brewery.setCity(city);
-			brewery.setCountry(country);
+			Brewery brewery = new Brewery(id, name, address, city, country);
 			breweries.add(brewery);
 		}
 		return breweries;

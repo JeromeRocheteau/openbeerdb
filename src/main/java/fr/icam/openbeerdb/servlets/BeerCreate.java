@@ -23,8 +23,8 @@ public class BeerCreate extends JdbcUpdateServlet<Integer> {
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
 		String name = request.getParameter("name");
-		int brewery = Integer.valueOf(request.getParameter("brewery"));
-		float abv = Float.valueOf(request.getParameter("abv"));
+		Integer brewery = Integer.valueOf(request.getParameter("brewery"));
+		Float abv = Float.valueOf(request.getParameter("abv"));
 		statement.setString(1, name);
 		statement.setInt(2, brewery);
 		statement.setFloat(3, abv);

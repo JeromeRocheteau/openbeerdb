@@ -22,7 +22,7 @@ public class BreweryDelete extends JdbcUpdateServlet<Integer> {
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
-		int id = Integer.valueOf(request.getParameter("id"));
+		Integer id = Integer.valueOf(request.getParameter("id"));
 		statement.setInt(1, id);
 	}
 

@@ -2,7 +2,7 @@ package fr.icam.openbeerdb.entities;
 
 public class Brewery {
 
-	private int id;
+	private Integer id;
 	
 	private String name;
 	
@@ -49,6 +49,15 @@ public class Brewery {
 	}
 
 	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public Brewery(Integer id, String name, String address, String city, String country) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.city = city;
 		this.country = country;
 	}
 	

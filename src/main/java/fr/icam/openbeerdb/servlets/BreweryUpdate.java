@@ -22,7 +22,7 @@ public class BreweryUpdate extends JdbcUpdateServlet<Integer> {
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
-		int id = Integer.valueOf(request.getParameter("id"));
+		Integer id = Integer.valueOf(request.getParameter("id"));
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
 		String city = request.getParameter("city");
