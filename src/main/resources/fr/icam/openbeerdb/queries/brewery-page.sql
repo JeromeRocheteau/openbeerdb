@@ -1,3 +1,4 @@
 select id, name, address, city, country  
-from breweries 
+from breweries
+order by id asc
 limit ?,? 

@@ -46,7 +46,7 @@ app.controller('controller', function ($scope, $http) {
 
 	$scope.create = function() {
 		var datacontent = "name=" + $scope.brewery.name + ($scope.brewery.address ? "&address=" + $scope.brewery.address : "") + "&city=" + $scope.brewery.city + "&country=" + $scope.brewery.country; 
-		$http({method:'POST',url:'/openbeerdb/breweries/create',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
+		$http({method:'POST',url:'./breweries/create',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
 			init();
 			size();
@@ -59,7 +59,7 @@ app.controller('controller', function ($scope, $http) {
 
 	$scope.update = function() {
 		var datacontent = "id=" + $scope.brewery.id + "&name=" + $scope.brewery.name + ($scope.brewery.address ? "&address=" + $scope.brewery.address : "") + "&city=" + $scope.brewery.city + "&country=" + $scope.brewery.country; 
-		$http({method:'POST',url:'/openbeerdb/breweries/update',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
+		$http({method:'POST',url:'./breweries/update',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
 			init();
 		}, function onError(response) {
@@ -69,7 +69,7 @@ app.controller('controller', function ($scope, $http) {
 
 	$scope.remove = function() {
 		var datacontent = "id=" + $scope.brewery.id; 
-		$http({method:'POST',url:'/openbeerdb/breweries/delete',data:datacontent,headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+		$http({method:'POST',url:'./breweries/delete',data:datacontent,headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
 			init();
 			size();
@@ -81,7 +81,7 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	var size = function() {
-		$http({method:'GET',url:'/openbeerdb/breweries/size'})
+		$http({method:'GET',url:'./breweries/size'})
 		.then(function onSuccess(response) {
 			$scope.size = response.data;
 		}, function onError(response) {
@@ -90,7 +90,7 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	var page = function() {
-		$http({method:'GET',url:'/openbeerdb/breweries/page',params:{"offset":$scope.offset,"length":$scope.length}})
+		$http({method:'GET',url:'./breweries/page',params:{"offset":$scope.offset,"length":$scope.length}})
 		.then(function onSuccess(response) {
 			$scope.breweries = response.data;
 		}, function onError(response) {

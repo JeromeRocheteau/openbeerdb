@@ -9,4 +9,5 @@ select
   br.country as country 
 from beers b 
 inner join breweries br on br.id = b.brewery
+order by b.id asc
 limit ?,?
