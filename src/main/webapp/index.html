@@ -50,8 +50,12 @@
           <table class="table table-bordered table-condensed">
             <thead> 
               <tr>
-                <th>nom du pays</th>
-                <th class="text-right">nombre de bières</th>
+                <th>
+                  <span ng-if="controls.filtered === 0">nom du pays</span>
+                  <span ng-if="controls.filtered === 1">nom de la brasserie</span>
+                  <span ng-if="controls.filtered === 2">nom de la bière</span>
+                </th>
+                <th class="text-right" >nombre de bières</th>
                 <th class="text-right">degré moyen d'alcool</th>
               </tr>
             </thead>
@@ -70,9 +74,7 @@
             <div class="form-group">
               <div class="btn-group btn-group-justified">
                 <label class="btn btn-default" for="counts" ng-class="{active:controls.view==='counts'}">
-                  <input type="radio" id="counts" name="controls.view" ng-model="controls.view" value="counts" style="visibility:hidden; width:0px;" >
-                  nombre de bières
-                </label>
+                  <input type="radio" id="counts" name="controls.view" ng-model="controls.view" value="counts" style="visibility:hidden; width:0px;" >nombre de bières</label>
                 <label class="btn btn-default" for="averages" ng-class="{active:controls.view==='averages'}">
                   <input type="radio" id="averages" name="controls.view" ng-model="controls.view" value="averages" style="visibility:hidden; width:0px;" >
                   degré moyen d'alcool
