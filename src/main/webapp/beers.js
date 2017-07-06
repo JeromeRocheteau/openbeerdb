@@ -70,7 +70,7 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	$scope.remove = function() {
-		var datacontent = "id=" + $scope.brewery.id; 
+		var datacontent = "id=" + $scope.beer.id; 
 		$http({method:'POST',url:'./beers/delete',data:datacontent,headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
 			init();
