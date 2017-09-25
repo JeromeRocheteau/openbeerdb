@@ -21,22 +21,23 @@
     <header>
       <div class="navbar navbar-default navbar-custom navbar-static-top">
         <div class="container">
-          <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
           <a class="navbar-brand" href="./index.html">OpenBeer DB</a>
           <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-center">
-              <li class=""><a href="breweries.html">Édition des brasseries</a></li>
-              <li class=""><a href="beers.html">Édition des bières</a></li>
+            <ul class="nav navbar-nav navbar-left">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>Édition</strong> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li class=""><a href="./breweries.html">Édition des brasseries</a></li>
+                  <li class=""><a href="./styles.html">Édition des styles de bière</a></li>
+                  <li class=""><a href="./beers.html">Édition des bières</a></li>
+                </ul>
+              </li>
             </ul>
           </div>
         </div>
       </div>
     </header>
-    <section id="content" class="container">
+    <section id="content" class="container ng-cloak">
       <div class="row" style="margin-top:1em; margin-bottom:1em;">
         <h2>
           Tableau de bord
