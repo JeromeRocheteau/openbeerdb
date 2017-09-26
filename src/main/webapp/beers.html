@@ -43,16 +43,21 @@
           <legend ng-show="updating">Édition de la bière #{{beer.id}}</legend>
             <div class="form-group">
               <label for="beer.name">Nom de la bière</label>
-              <input type="text" id="beer.name" class="form-control" ng-model="beer.name" placeholder="Nom" required ng-required="true" />
-            </div>
-            <div class="form-group">
-              <label for="beer.brewery">Brasserie</label>
-              <select id="beer.brewery" class="form-control" ng-model="beer.brewery" placeholder="Brasserie" required ng-required="true" ng-change="brewery(beer.brewery)" ng-options="brewery as brewery.name for brewery in breweries track by brewery.id">
-              </select>
+              <input type="text" id="beer.name" class="form-control" ng-model="beer.name" placeholder="Nom" ng-required="true" required />
             </div>
             <div class="form-group">
               <label for="beer.abv">Degré d'alcool</label>
-              <input type="number" min="0.00" max="20.00" step="0.01" id="beer.abv" class="form-control" ng-model="beer.abv" placeholder="Degré d'alcool" required ng-required="true" />
+              <input type="number" min="0.00" max="20.00" step="0.01" id="beer.abv" class="form-control" ng-model="beer.abv" placeholder="Degré d'alcool" ng-required="true" required />
+            </div>
+            <div class="form-group">
+              <label for="beer.brewery">Brasserie</label>
+              <select id="beer.brewery" class="form-control" ng-model="beer.brewery" placeholder="Brasserie" ng-change="brewery(beer.brewery)" ng-options="brewery as brewery.name for brewery in breweries track by brewery.id" ng-required="true" required>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="beer.styles">Styles de bière</label>
+              <select multiple id="beer.styles" class="form-control" ng-model="beer.styles" placeholder="Styles de bières" ng-change="styles(beer.styles)" ng-options="style as style.name for style in styles track by style.id">
+              </select>
             </div>
             <div class="form-group pull-right">
                <button type="reset" class="btn btn-default" ng-click="clean()"><strong>Annuler</strong></button>
@@ -80,6 +85,7 @@
             <p class="list-group-item-heading">#{{beer.id}} {{beer.name}}</p>
             <p class="list-group-item-text">#{{beer.brewery.id}} {{beer.brewery.name}}</p>
             <p class="list-group-item-text"><span ng-show="beer.brewery.address">{{beer.brewery.address}}, </span>{{beer.brewery.city}}, {{beer.brewery.country}}</p>
+            <p class="list-group-item-text"><span ng-repeat="style in beer.styles">{{style.name}}</span><span ng-hide="$first">, </span></p>
             <p class="list-group-item-text text-right">
               <button type="button" class="btn btn-default" ng-click="select(beer)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
             </p>

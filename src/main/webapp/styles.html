@@ -43,11 +43,11 @@
           <legend ng-show="updating">Édition du style de bière #{{style.id}}</legend>
             <div class="form-group">
               <label for="style.name">Nom de la bière</label>
-              <input type="text" id="style.name" class="form-control" ng-model="style.name" placeholder="Nom" required ng-required="true" />
+              <input type="text" id="style.name" class="form-control" ng-model="style.name" placeholder="Nom" ng-required="true" required />
             </div>
             <div class="form-group">
               <label for="style.category">Style parent</label>
-              <select id="style.category" class="form-control" ng-model="style.category" placeholder="Catégorie" required ng-required="true" ng-change="category(style.category)" ng-options="style as style.name for style in styles track by style.id">
+              <select id="style.category" class="form-control" ng-model="style.category" placeholder="Catégorie" ng-change="category(style.category)" ng-options="style as style.name for style in styles track by style.id">
               </select>
             </div>
             <div class="form-group pull-right">
