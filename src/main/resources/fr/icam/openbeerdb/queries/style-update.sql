@@ -1,0 +1,1 @@
+update styles set name = ?, category = ? where id = ?
