@@ -131,17 +131,25 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	$scope.first = function() {
-		$scope.offset = 0;
-		page();
+		if ($scope.offset > 0) {
+			$scope.offset = 0;
+			page();
+		}
 	}
 
 	$scope.last = function() {
-		$scope.offset = Math.floor(($scope.size - 1) / $scope.length) * $scope.length;
-		page();
+		if ($scope.offset < Math.floor(($scope.size - 1) / $scope.length) * $scope.length) {
+			$scope.offset = Math.floor(($scope.size - 1) / $scope.length) * $scope.length;
+			page();
+		}
 	}
 
 	$scope.brewery = function(brewery) {
 		$scope.beer.brewery = brewery;
+	}
+	
+	$scope.labels = function(styles) {
+		$scope.beer.styles = styles;
 	}
 
 	init();

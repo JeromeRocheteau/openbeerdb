@@ -3,6 +3,7 @@ package fr.icam.openbeerdb.servlets;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,35 +11,27 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.jeromerocheteau.JdbcUpdateServlet;
 
-public class BeerCreate extends JdbcUpdateServlet<Integer> {
+public class StyleCreate extends JdbcUpdateServlet<Integer> {
 
-	private static final long serialVersionUID = 8L;
+	private static final long serialVersionUID = 17L;
 	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Integer id = this.doProcess(request);
-		request.setAttribute("beerId", id);
-		this.setStyles(request, response);
 		this.doWrite(id, response.getWriter());
-	}
-
-	private void setStyles(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] styles = request.getParameterValues("style");
-		for (String style : styles) {
-			Integer styleId = Integer.valueOf(style);
-			request.setAttribute("styleId", styleId);
-			this.doCall(request, response, "feature-create");
-		}
 	}
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
 		String name = request.getParameter("name");
-		Integer brewery = Integer.valueOf(request.getParameter("brewery"));
-		Float abv = Float.valueOf(request.getParameter("abv"));
+		String category = request.getParameter("category");
 		statement.setString(1, name);
-		statement.setInt(2, brewery);
-		statement.setFloat(3, abv);
+		if (category == null) {
+			statement.setNull(2, Types.INTEGER);
+		} else {
+			Integer style = Integer.valueOf(Integer.valueOf(category));
+			statement.setInt(2, style);
+		}
 	}
 
 	@Override

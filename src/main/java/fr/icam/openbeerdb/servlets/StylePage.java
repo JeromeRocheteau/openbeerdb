@@ -4,9 +4,9 @@ import java.sql.PreparedStatement;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class BreweryPage extends BreweryList {
+public class StylePage extends StyleList {
 
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 16L;
 	
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {

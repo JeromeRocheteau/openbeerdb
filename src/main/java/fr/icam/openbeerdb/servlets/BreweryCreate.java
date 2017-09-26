@@ -12,7 +12,7 @@ import com.github.jeromerocheteau.JdbcUpdateServlet;
 
 public class BreweryCreate extends JdbcUpdateServlet<Integer> {
 
-	private static final long serialVersionUID = 11L;
+	private static final long serialVersionUID = 3L;
 	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

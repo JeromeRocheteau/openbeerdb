@@ -12,23 +12,18 @@ public class Stats {
 		return label;
 	}
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
 	public Integer getCount() {
 		return count;
-	}
-
-	public void setCount(Integer count) {
-		this.count = count;
 	}
 
 	public Float getAverage() {
 		return average;
 	}
 
-	public void setAverage(Float average) {
+	public Stats(String label, Integer count, Float average) {
+		super();
+		this.label = label;
+		this.count = count;
 		this.average = average;
 	}
 	

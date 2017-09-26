@@ -12,10 +12,11 @@ import com.github.jeromerocheteau.JdbcUpdateServlet;
 
 public class BeerDelete extends JdbcUpdateServlet<Integer> {
 
-	private static final long serialVersionUID = 16L;
+	private static final long serialVersionUID = 10L;
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		this.doCall(request, response, "feature-delete");
 		Integer count = this.doProcess(request);
 		this.doWrite(count, response.getWriter());
 	}

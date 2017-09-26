@@ -12,37 +12,40 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.jeromerocheteau.JdbcQueryServlet;
 
-import fr.icam.openbeerdb.entities.Brewery;
+import fr.icam.openbeerdb.entities.Style;
 
-public class BreweryList extends JdbcQueryServlet<List<Brewery>> {
+public class StyleList extends JdbcQueryServlet<List<Style>> {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 15L;
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		List<Brewery> breweries = this.doProcess(request);
-		this.doWrite(breweries, response.getWriter());
+		List<Style> styles = this.doProcess(request);
+		this.doWrite(styles, response.getWriter());
 	}
 	
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception { }
 
 	@Override
-	protected List<Brewery> doMap(HttpServletRequest request, ResultSet resultSet) throws Exception {
-		List<Brewery> breweries = new LinkedList<Brewery>();
+	protected List<Style> doMap(HttpServletRequest request, ResultSet resultSet) throws Exception {
+		List<Style> items = new LinkedList<Style>();
 		while (resultSet.next()) {
 			Integer id = resultSet.getInt("id");
 			String name = resultSet.getString("name");
-			String city = resultSet.getString("city");
-			String country = resultSet.getString("country");
-			String address = resultSet.getString("address");
+			Integer styleId = resultSet.getInt("styleId");
 			if (resultSet.wasNull()) {
-				address = null;
+				styleId = null;
 			}
-			Brewery brewery = new Brewery(id, name, address, city, country);
-			breweries.add(brewery);
+			String styleName = resultSet.getString("styleName");
+			if (resultSet.wasNull()) {
+				styleName = null;
+			}
+			Style style = styleId == null ? null : new Style(styleId, styleName, null);
+			Style item = new Style(id, name, style);
+			items.add(item);
 		}
-		return breweries;
+		return items;
 	}
 	
 }

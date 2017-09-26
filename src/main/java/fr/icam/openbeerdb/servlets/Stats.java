@@ -10,7 +10,7 @@ import com.github.jeromerocheteau.JdbcServlet;
 
 public class Stats extends JdbcServlet {
 
-	private static final long serialVersionUID = 19L;
+	private static final long serialVersionUID = 13L;
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

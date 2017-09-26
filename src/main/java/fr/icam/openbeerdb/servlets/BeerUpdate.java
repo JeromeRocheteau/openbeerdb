@@ -12,12 +12,28 @@ import com.github.jeromerocheteau.JdbcUpdateServlet;
 
 public class BeerUpdate extends JdbcUpdateServlet<Integer> {
 
-	private static final long serialVersionUID = 15L;
+	private static final long serialVersionUID = 9L;
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		this.doCall(request, response, "feature-delete");
 		Integer count = this.doProcess(request);
+		Integer id = Integer.valueOf(request.getParameter("id"));
+		request.setAttribute("beerId", id);
+		this.setStyles(request, response);
 		this.doWrite(count, response.getWriter());
+	}
+
+
+	private void setStyles(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String[] styles = request.getParameterValues("style");
+		if (styles != null) {
+			for (String style : styles) {
+				Integer styleId = Integer.valueOf(style);
+				request.setAttribute("styleId", styleId);
+				this.doCall(request, response, "feature-create");
+			}
+		}
 	}
 
 	@Override

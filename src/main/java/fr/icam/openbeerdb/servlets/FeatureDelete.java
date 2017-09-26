@@ -10,20 +10,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.jeromerocheteau.JdbcUpdateServlet;
 
-public class BreweryDelete extends JdbcUpdateServlet<Integer> {
+public class FeatureDelete extends JdbcUpdateServlet<Integer> {
 
-	private static final long serialVersionUID = 5L;
+	private static final long serialVersionUID = 22L;
 	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		Integer count = this.doProcess(request);
-		this.doWrite(count, response.getWriter());
+		this.doProcess(request);
 	}
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
 		Integer id = Integer.valueOf(request.getParameter("id"));
-		statement.setInt(1, id);
+		statement.setLong(1, id);
 	}
 
 	@Override

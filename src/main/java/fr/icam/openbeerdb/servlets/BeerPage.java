@@ -17,11 +17,15 @@ import fr.icam.openbeerdb.entities.Brewery;
 
 public class BeerPage extends JdbcQueryServlet<List<Beer>> {
 
-	private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 7L;
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		List<Beer> beers = this.doProcess(request);
+		for (Beer beer : beers) {
+			request.setAttribute("beer", beer);
+			this.doCall(request, response, "feature-list");
+		}
 		this.doWrite(beers, response.getWriter());
 	}
 	
@@ -49,7 +53,7 @@ public class BeerPage extends JdbcQueryServlet<List<Beer>> {
 				address = null;
 			}
 			Brewery brewery = new Brewery(breweryId, breweryName, address, city, country);
-			Beer beer = new Beer(beerId, brewery, beerName, abv);
+			Beer beer = new Beer(beerId, beerName, abv, brewery);
 			beers.add(beer);
 		}
 		return beers;

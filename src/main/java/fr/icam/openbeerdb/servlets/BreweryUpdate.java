@@ -12,14 +12,14 @@ import com.github.jeromerocheteau.JdbcUpdateServlet;
 
 public class BreweryUpdate extends JdbcUpdateServlet<Integer> {
 
-	private static final long serialVersionUID = 15L;
+	private static final long serialVersionUID = 4L;
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Integer count = this.doProcess(request);
 		this.doWrite(count, response.getWriter());
 	}
-
+	
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
 		Integer id = Integer.valueOf(request.getParameter("id"));

@@ -46,7 +46,7 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	$scope.create = function() {
-		var datacontent = "name=" + $scope.style.name + "&category=" + $scope.style.category.id;
+		var datacontent = "name=" + $scope.style.name + ($scope.style.category ? "&category=" + $scope.style.category.id : "");
 		$http({method:'POST',url:'./styles/create',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
 			init();
@@ -59,7 +59,7 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	$scope.update = function() {
-		var datacontent = "id=" + $scope.style.id + "&name=" + $scope.style.name + "&category=" + $scope.style.category.id; 
+		var datacontent = "id=" + $scope.style.id + "&name=" + $scope.style.name + ($scope.style.category ? "&category=" + $scope.style.category.id : ""); 
 		$http({method:'POST',url:'./styles/update',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
 			init();
@@ -124,13 +124,17 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	$scope.first = function() {
-		$scope.offset = 0;
-		page();
+		if ($scope.offset > 0) {
+			$scope.offset = 0;
+			page();
+		}
 	}
 
 	$scope.last = function() {
-		$scope.offset = Math.floor(($scope.size - 1) / $scope.length) * $scope.length;
-		page();
+		if ($scope.offset < Math.floor(($scope.size - 1) / $scope.length) * $scope.length) {
+			$scope.offset = Math.floor(($scope.size - 1) / $scope.length) * $scope.length;
+			page();
+		}
 	}
 
 	$scope.category = function(category) {

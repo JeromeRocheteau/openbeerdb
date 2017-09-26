@@ -56,7 +56,7 @@
             </div>
             <div class="form-group">
               <label for="beer.styles">Styles de bière</label>
-              <select multiple id="beer.styles" class="form-control" ng-model="beer.styles" placeholder="Styles de bières" ng-change="styles(beer.styles)" ng-options="style as style.name for style in styles track by style.id">
+              <select multiple id="beer.styles" class="form-control" ng-model="beer.styles" placeholder="Styles de bières" ng-change="labels(beer.styles)" ng-options="style as style.name for style in styles track by style.id">
               </select>
             </div>
             <div class="form-group pull-right">
@@ -81,11 +81,17 @@
         </nav>
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="beer in beers">
-            <span class="badge">{{beer.abv}}</span>
+            <span class="label label-primary pull-right">{{beer.abv}}°</span>
             <p class="list-group-item-heading">#{{beer.id}} {{beer.name}}</p>
-            <p class="list-group-item-text">#{{beer.brewery.id}} {{beer.brewery.name}}</p>
-            <p class="list-group-item-text"><span ng-show="beer.brewery.address">{{beer.brewery.address}}, </span>{{beer.brewery.city}}, {{beer.brewery.country}}</p>
-            <p class="list-group-item-text"><span ng-repeat="style in beer.styles">{{style.name}}</span><span ng-hide="$first">, </span></p>
+            <p class="list-group-item-text">
+              <span aria-hidden="true" class="glyphicon glyphicon-map-marker" style="padding-right:0.5ex;"></span>
+              {{beer.brewery.name}} (#{{beer.brewery.id}}), 
+              <span ng-show="beer.brewery.address">{{beer.brewery.address}}, </span>{{beer.brewery.city}}, {{beer.brewery.country}}
+            </p>
+            <p class="list-group-item-text">
+              <span aria-hidden="true" ng-show="beer.styles.length > 0" class="glyphicon glyphicon-tags" style="padding-right:0.5ex;"></span>
+              <span ng-repeat="style in beer.styles">{{style.name}}<span ng-hide="$last">, </span></span>
+            </p>
             <p class="list-group-item-text text-right">
               <button type="button" class="btn btn-default" ng-click="select(beer)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
             </p>

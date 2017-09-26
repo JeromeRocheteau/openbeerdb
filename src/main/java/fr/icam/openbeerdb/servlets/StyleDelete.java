@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.jeromerocheteau.JdbcUpdateServlet;
 
-public class BreweryDelete extends JdbcUpdateServlet<Integer> {
+public class StyleDelete extends JdbcUpdateServlet<Integer> {
 
-	private static final long serialVersionUID = 5L;
+	private static final long serialVersionUID = 19L;
 	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

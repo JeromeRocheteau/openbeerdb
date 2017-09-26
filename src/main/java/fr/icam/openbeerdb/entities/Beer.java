@@ -1,5 +1,7 @@
 package fr.icam.openbeerdb.entities;
 
+import java.util.List;
+
 public class Beer {
 
 	private Integer id;
@@ -9,40 +11,34 @@ public class Beer {
 	private String name;
 	
 	private Float abv;
+	
+	private List<Style> styles;
 
 	public Integer getId() {
 		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 	public Brewery getBrewery() {
 		return brewery;
 	}
 
-	public void setBrewery(Brewery brewery) {
-		this.brewery = brewery;
-	}
-
 	public String getName() {
 		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Float getAbv() {
 		return abv;
 	}
 
-	public void setAbv(Float abv) {
-		this.abv = abv;
+	public List<Style> getStyles() {
+		return styles;
 	}
 
-	public Beer(Integer id, Brewery brewery, String name, Float abv) {
+	public void setStyles(List<Style> styles) {
+		this.styles = styles;
+	}
+
+	public Beer(Integer id, String name, Float abv, Brewery brewery) {
 		super();
 		this.id = id;
 		this.brewery = brewery;
