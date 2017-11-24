@@ -16,7 +16,7 @@ import fr.icam.openbeerdb.entities.Brewery;
 
 public class BreweryList extends JdbcQueryServlet<List<Brewery>> {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 04L;
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

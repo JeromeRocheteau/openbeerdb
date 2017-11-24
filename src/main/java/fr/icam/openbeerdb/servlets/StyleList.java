@@ -16,7 +16,7 @@ import fr.icam.openbeerdb.entities.Style;
 
 public class StyleList extends JdbcQueryServlet<List<Style>> {
 
-	private static final long serialVersionUID = 15L;
+	private static final long serialVersionUID = 24L;
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

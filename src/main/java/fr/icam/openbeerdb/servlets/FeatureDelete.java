@@ -21,8 +21,8 @@ public class FeatureDelete extends JdbcUpdateServlet<Integer> {
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
-		Integer id = Integer.valueOf(request.getParameter("id"));
-		statement.setLong(1, id);
+		Integer id = (Integer) request.getAttribute("beerId");
+		statement.setInt(1, id);
 	}
 
 	@Override

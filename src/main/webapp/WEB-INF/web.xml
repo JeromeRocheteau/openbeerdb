@@ -25,7 +25,9 @@
   <listener>
     <listener-class>com.github.jeromerocheteau.JdbcListener</listener-class>
   </listener>
-
+  
+    <!-- breweries -->
+  
   <servlet>
     <servlet-name>brewery-list</servlet-name>
     <servlet-class>fr.icam.openbeerdb.servlets.BreweryList</servlet-class>
@@ -41,7 +43,7 @@
 
   <servlet>
     <servlet-name>brewery-size</servlet-name>
-    <servlet-class>fr.icam.openbeerdb.servlets.BrewerySize</servlet-class>
+    <servlet-class>fr.icam.openbeerdb.servlets.Size</servlet-class>
     <init-param>
       <param-name>sql-query</param-name>
       <param-value>/fr/icam/openbeerdb/queries/brewery-size.sql</param-value>
@@ -103,108 +105,89 @@
     <servlet-name>brewery-delete</servlet-name>
     <url-pattern>/breweries/delete</url-pattern>
   </servlet-mapping>
+
+  <!-- brands -->
   
   <servlet>
-    <servlet-name>beer-size</servlet-name>
-    <servlet-class>fr.icam.openbeerdb.servlets.BeerSize</servlet-class>
+    <servlet-name>brand-list</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BrandList</servlet-class>
     <init-param>
       <param-name>sql-query</param-name>
-      <param-value>/fr/icam/openbeerdb/queries/beer-size.sql</param-value>
+      <param-value>/fr/icam/openbeerdb/queries/brand-list.sql</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
-    <servlet-name>beer-size</servlet-name>
-    <url-pattern>/beers/size</url-pattern>
+    <servlet-name>brand-list</servlet-name>
+    <url-pattern>/brands/list</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>beer-page</servlet-name>
-    <servlet-class>fr.icam.openbeerdb.servlets.BeerPage</servlet-class>
+    <servlet-name>brand-size</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.Size</servlet-class>
     <init-param>
       <param-name>sql-query</param-name>
-      <param-value>/fr/icam/openbeerdb/queries/beer-page.sql</param-value>
+      <param-value>/fr/icam/openbeerdb/queries/brand-size.sql</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
-    <servlet-name>beer-page</servlet-name>
-    <url-pattern>/beers/page</url-pattern>
+    <servlet-name>brand-size</servlet-name>
+    <url-pattern>/brands/size</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>beer-create</servlet-name>
-    <servlet-class>fr.icam.openbeerdb.servlets.BeerCreate</servlet-class>
+    <servlet-name>brand-page</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BrandPage</servlet-class>
     <init-param>
       <param-name>sql-query</param-name>
-      <param-value>/fr/icam/openbeerdb/queries/beer-create.sql</param-value>
+      <param-value>/fr/icam/openbeerdb/queries/brand-page.sql</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
-    <servlet-name>beer-create</servlet-name>
-    <url-pattern>/beers/create</url-pattern>
+    <servlet-name>brand-page</servlet-name>
+    <url-pattern>/brands/page</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>beer-update</servlet-name>
-    <servlet-class>fr.icam.openbeerdb.servlets.BeerUpdate</servlet-class>
+    <servlet-name>brand-create</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BrandCreate</servlet-class>
     <init-param>
       <param-name>sql-query</param-name>
-      <param-value>/fr/icam/openbeerdb/queries/beer-update.sql</param-value>
+      <param-value>/fr/icam/openbeerdb/queries/brand-create.sql</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
-    <servlet-name>beer-update</servlet-name>
-    <url-pattern>/beers/update</url-pattern>
+    <servlet-name>brand-create</servlet-name>
+    <url-pattern>/brands/create</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>beer-delete</servlet-name>
-    <servlet-class>fr.icam.openbeerdb.servlets.BeerDelete</servlet-class>
+    <servlet-name>brand-update</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BrandUpdate</servlet-class>
     <init-param>
       <param-name>sql-query</param-name>
-      <param-value>/fr/icam/openbeerdb/queries/beer-delete.sql</param-value>
+      <param-value>/fr/icam/openbeerdb/queries/brand-update.sql</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
-    <servlet-name>beer-delete</servlet-name>
-    <url-pattern>/beers/delete</url-pattern>
+    <servlet-name>brand-update</servlet-name>
+    <url-pattern>/brands/update</url-pattern>
   </servlet-mapping>
 
   <servlet>
-    <servlet-name>stats-global</servlet-name>
-    <servlet-class>fr.icam.openbeerdb.servlets.StatsGlobal</servlet-class>
+    <servlet-name>brand-delete</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BrandDelete</servlet-class>
     <init-param>
       <param-name>sql-query</param-name>
-      <param-value>/fr/icam/openbeerdb/queries/stats-global.sql</param-value>
+      <param-value>/fr/icam/openbeerdb/queries/brand-delete.sql</param-value>
     </init-param>
-  </servlet>
-
-  <servlet>
-    <servlet-name>stats-local</servlet-name>
-    <servlet-class>fr.icam.openbeerdb.servlets.StatsLocal</servlet-class>
-    <init-param>
-      <param-name>sql-query</param-name>
-      <param-value>/fr/icam/openbeerdb/queries/stats-local.sql</param-value>
-    </init-param>
-  </servlet>
-
-  <servlet>
-    <servlet-name>stats-initial</servlet-name>
-    <servlet-class>fr.icam.openbeerdb.servlets.StatsLocal</servlet-class>
-    <init-param>
-      <param-name>sql-query</param-name>
-      <param-value>/fr/icam/openbeerdb/queries/stats-initial.sql</param-value>
-    </init-param>
-  </servlet>
-
-  <servlet>
-    <servlet-name>stats</servlet-name>
-    <servlet-class>fr.icam.openbeerdb.servlets.Stats</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>stats</servlet-name>
-    <url-pattern>/stats</url-pattern>
+    <servlet-name>brand-delete</servlet-name>
+    <url-pattern>/brands/delete</url-pattern>
   </servlet-mapping>
-
+  
+  <!-- styles -->
+  
   <servlet>
     <servlet-name>style-list</servlet-name>
     <servlet-class>fr.icam.openbeerdb.servlets.StyleList</servlet-class>
@@ -220,7 +203,7 @@
 
   <servlet>
     <servlet-name>style-size</servlet-name>
-    <servlet-class>fr.icam.openbeerdb.servlets.StyleSize</servlet-class>
+    <servlet-class>fr.icam.openbeerdb.servlets.Size</servlet-class>
     <init-param>
       <param-name>sql-query</param-name>
       <param-value>/fr/icam/openbeerdb/queries/style-size.sql</param-value>
@@ -283,6 +266,75 @@
     <url-pattern>/styles/delete</url-pattern>
   </servlet-mapping>
 
+  <!-- beers -->
+
+  <servlet>
+    <servlet-name>beer-size</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.Size</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/beer-size.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>beer-size</servlet-name>
+    <url-pattern>/beers/size</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>beer-page</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BeerPage</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/beer-page.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>beer-page</servlet-name>
+    <url-pattern>/beers/page</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>beer-create</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BeerCreate</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/beer-create.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>beer-create</servlet-name>
+    <url-pattern>/beers/create</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>beer-update</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BeerUpdate</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/beer-update.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>beer-update</servlet-name>
+    <url-pattern>/beers/update</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>beer-delete</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BeerDelete</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/beer-delete.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>beer-delete</servlet-name>
+    <url-pattern>/beers/delete</url-pattern>
+  </servlet-mapping>
+
+  <!-- styles & beers -->
+
   <servlet>
     <servlet-name>feature-list</servlet-name>
     <servlet-class>fr.icam.openbeerdb.servlets.FeatureList</servlet-class>
@@ -309,5 +361,43 @@
       <param-value>/fr/icam/openbeerdb/queries/feature-delete.sql</param-value>
     </init-param>
   </servlet>
+
+  <!-- stats -->
+
+  <servlet>
+    <servlet-name>stats-global</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.StatsGlobal</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/stats-global.sql</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>stats-local</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.StatsLocal</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/stats-local.sql</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>stats-initial</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.StatsLocal</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/stats-initial.sql</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet>
+    <servlet-name>stats</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.Stats</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>stats</servlet-name>
+    <url-pattern>/stats</url-pattern>
+  </servlet-mapping>
 
 </web-app>

@@ -8,18 +8,24 @@ public class Beer {
 	
 	private Brewery brewery;
 	
+	private Brand brand;
+	
 	private String name;
 	
 	private Float abv;
 	
 	private List<Style> styles;
-
+	
 	public Integer getId() {
 		return id;
 	}
 
 	public Brewery getBrewery() {
 		return brewery;
+	}
+
+	public Brand getBrand() {
+		return brand;
 	}
 
 	public String getName() {
@@ -38,12 +44,13 @@ public class Beer {
 		this.styles = styles;
 	}
 
-	public Beer(Integer id, String name, Float abv, Brewery brewery) {
+	public Beer(Integer id, String name, Float abv, Brewery brewery, Brand brand) {
 		super();
 		this.id = id;
 		this.brewery = brewery;
 		this.name = name;
 		this.abv = abv;
+		this.brand = brand;
 	}
 	
 }

@@ -1,0 +1,1 @@
+insert into brands (name, brewery) values (?,?)

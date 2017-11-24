@@ -10,25 +10,35 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.jeromerocheteau.JdbcUpdateServlet;
 
-public class BeerDelete extends JdbcUpdateServlet<Integer> {
+public class BrandCreate extends JdbcUpdateServlet<Integer> {
 
-	private static final long serialVersionUID = 33L;
-
+	private static final long serialVersionUID = 10L;
+	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		Integer count = this.doProcess(request);
-		this.doWrite(count, response.getWriter());
+		Integer id = this.doProcess(request);
+		this.doWrite(id, response.getWriter());
 	}
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
-		String id = request.getParameter("id");
-		statement.setInt(1, Integer.valueOf(id));
+		String name = request.getParameter("name");
+		String brewery = request.getParameter("brewery");
+		statement.setString(1, name);
+		statement.setInt(2, Integer.valueOf(brewery));
 	}
 
 	@Override
 	protected Integer doMap(HttpServletRequest request, int count, ResultSet resultSet) throws Exception {
-		return count;
+		Integer id = null;
+		while (resultSet.next()) {
+			if (id == null) {
+				id = resultSet.getInt(1);
+			} else {
+				throw new Exception("too many generated keys '" + count + "' (already retrieve '" + id + "' and '" + resultSet.getInt(1) + "').");
+			}
+		}
+		return id;
 	}
 	
 }

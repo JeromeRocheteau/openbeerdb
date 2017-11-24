@@ -14,11 +14,9 @@ app.controller('controller', function ($scope, $http) {
 	$scope.creating = false;
 	$scope.updating = false;
 
-	$scope.beer = {};
-	$scope.beers = [];
-	$scope.styles = [];
-	$scope.breweries = [];
+	$scope.brand = {};
 	$scope.brands = [];
+	$scope.breweries = [];
 	$scope.size = 0;
 	$scope.offset = 0;
 	$scope.length = 5;
@@ -27,34 +25,29 @@ app.controller('controller', function ($scope, $http) {
 		$scope.selected = false;
 		$scope.creating = false;
 		$scope.updating = false;
-		$scope.beer = angular.copy(empty);
+		$scope.brand = angular.copy(empty);
 	}
 
 	$scope.clean = function() {
 		init();
 	}
 
-	$scope.select = function(beer) {
-		if (beer) {
+	$scope.select = function(brand) {
+		if (brand) {
 			$scope.creating = false;
 			$scope.updating = true;
-			$scope.beer = angular.copy(beer);
-			if ($scope.beer.brewery) {
-			  brands($scope.beer.brewery);
-			}
+			$scope.brand = angular.copy(brand);
 		} else {
 			$scope.creating = true;
-			$scope.updating = false;
-			$scope.beer = angular.copy(empty);
+			$scope.updating = false;  			
+			$scope.brand = angular.copy(empty);
 		}
 		$scope.selected = true;
 	}
 
 	$scope.create = function() {
-		var datacontent = "name=" + $scope.beer.name + "&abv=" + $scope.beer.abv + "&brewery=" + $scope.beer.brewery.id
-		+ ($scope.beer.brand ? "&brand=" + $scope.beer.brand.id : "")
-		+ ($scope.beer.styles ? $scope.beer.styles.reduce(function (a,b){ console.log(b); return a + "&style=" + b.id;},"") : "");
-		$http({method:'POST',url:'./beers/create',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
+		var datacontent = "name=" + $scope.brand.name + "&brewery=" + $scope.brand.brewery.id; 
+		$http({method:'POST',url:'./brands/create',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
 			init();
 			size();
@@ -66,10 +59,8 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	$scope.update = function() {
-		var datacontent = "id=" + $scope.beer.id + "&name=" + $scope.beer.name + "&abv=" + $scope.beer.abv + "&brewery=" + $scope.beer.brewery.id
-		+ ($scope.beer.brand ? "&brand=" + $scope.beer.brand.id : "")
-		+ ($scope.beer.styles ? $scope.beer.styles.reduce(function (a,b){ console.log(b); return a + "&style=" + b.id;},"") : ""); 
-		$http({method:'POST',url:'./beers/update',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
+		var datacontent = "id=" + $scope.brand.id + "&name=" + $scope.brand.name + "&brewery=" + $scope.brand.brewery.id; 
+		$http({method:'POST',url:'./brands/update',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
 			init();
 			page();
@@ -79,8 +70,8 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	$scope.remove = function() {
-		var datacontent = "id=" + $scope.beer.id; 
-		$http({method:'POST',url:'./beers/delete',data:datacontent,headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+		var datacontent = "id=" + $scope.brand.id; 
+		$http({method:'POST',url:'./brands/delete',data:datacontent,headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
 			init();
 			size();
@@ -98,16 +89,10 @@ app.controller('controller', function ($scope, $http) {
 		}, function onError(response) {
 			$scope.breweries = [];
 		});
-		$http({method:'GET',url:'./styles/list'})
-		.then(function onSuccess(response) {
-			$scope.styles = response.data;
-		}, function onError(response) {
-			$scope.styles = [];
-		});
 	}
 
 	var size = function() {
-		$http({method:'GET',url:'./beers/size'})
+		$http({method:'GET',url:'./brands/size'})
 		.then(function onSuccess(response) {
 			$scope.size = response.data;
 		}, function onError(response) {
@@ -116,11 +101,11 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	var page = function() {
-		$http({method:'GET',url:'./beers/page',params:{"offset":$scope.offset,"length":$scope.length}})
+		$http({method:'GET',url:'./brands/page',params:{"offset":$scope.offset,"length":$scope.length}})
 		.then(function onSuccess(response) {
-			$scope.beers = response.data;
+			$scope.brands = response.data;
 		}, function onError(response) {
-			$scope.beers = [];
+			$scope.brands = [];
 		});
 	}
 
@@ -152,27 +137,8 @@ app.controller('controller', function ($scope, $http) {
 		}
 	}
 
-	var brands = function(brewery) {
-	  var content = "?brewery=" + brewery.id; 
-	  $http({method:'GET',url:'./brands/list' + content})
-	  .then(function onSuccess(response) {
-	    $scope.brands = response.data;
-	  }, function onError(response) {
-	    $scope.brands = [];
-	  });
-	}
-
 	$scope.brewery = function(brewery) {
-	  $scope.beer.brewery = brewery;
-	  brands(brewery);
-	}
-
-	$scope.brand = function(brand) {
-		$scope.beer.brand = brand;
-	}
-	
-	$scope.labels = function(styles) {
-		$scope.beer.styles = styles;
+		$scope.brand.brewery = brewery;
 	}
 
 	init();

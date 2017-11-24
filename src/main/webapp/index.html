@@ -3,12 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>OpenBeer DB</title>
+    <title>OpenBeerDB | Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <style type="text/css">
-      html {overflow-y: scroll; height: 100%;}
-    </style>
+    <link rel="stylesheet" href="./openbeerdb.css">
   </head>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -19,16 +17,17 @@
   <script type="text/javascript" src="./index.js"></script>
   <body ng-app="app" ng-controller="controller">
     <header>
-      <div class="navbar navbar-default navbar-custom navbar-static-top">
-        <div class="container">
-          <a class="navbar-brand" href="./index.html">OpenBeer DB</a>
+      <div class="navbar navbar-inverse navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="./index.html">Accueil</a>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>Édition</strong> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li class=""><a href="./breweries.html">Édition des brasseries</a></li>
                   <li class=""><a href="./styles.html">Édition des styles de bière</a></li>
+                  <li class=""><a href="./breweries.html">Édition des brasseries</a></li>
+                  <li class=""><a href="./brands.html">Édition des marques de bière</a></li>
                   <li class=""><a href="./beers.html">Édition des bières</a></li>
                 </ul>
               </li>
@@ -37,6 +36,9 @@
         </div>
       </div>
     </header>
+    <div class="container-fluid well">
+      <h2>OpenBeerDB <small>la plateforme collaborative des professionnels de la bière</small></h2>
+    </div>
     <section id="content" class="container ng-cloak">
       <div class="row" style="margin-top:1em; margin-bottom:1em;">
         <h2>
@@ -91,5 +93,12 @@
         </div>
       </div>
     </section>
+    <footer class="footer navbar navbar-default navbar-custom navbar-fixed-bottom">
+      <div class="container-fluid">
+        <div class="nav navbar-nav navbar-left">
+          <p class="text-muted">Copyright © 2015-2017. ICAM. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
   </body>
 </html>

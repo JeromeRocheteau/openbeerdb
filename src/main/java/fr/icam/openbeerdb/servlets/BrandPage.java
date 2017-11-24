@@ -4,9 +4,9 @@ import java.sql.PreparedStatement;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class BreweryPage extends BreweryList {
+public class BrandPage extends BrandList {
 
-	private static final long serialVersionUID = 05L;
+	private static final long serialVersionUID = 15L;
 	
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
@@ -15,5 +15,5 @@ public class BreweryPage extends BreweryList {
 		statement.setInt(1, Integer.valueOf(offset));
 		statement.setInt(2, Integer.valueOf(length));
 	}
-	
+
 }

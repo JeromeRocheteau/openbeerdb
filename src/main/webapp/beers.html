@@ -3,30 +3,29 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>OpenBeer DB | Beers</title>
+    <title>OpenBeerDB | Beers</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <style type="text/css">
-      html {overflow-y: scroll; height: 100%;}
-    </style>
-  </head>
+    <link rel="stylesheet" href="./openbeerdb.css">
+  </head>  
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/i18n/angular-locale_fr-fr.js"></script>
-  <script type="text/javascript" src="./beers.js"></script>  
+  <script type="text/javascript" src="./beers.js"></script>
   <body ng-app="app" ng-controller="controller">
     <header>
-      <div class="navbar navbar-default navbar-custom navbar-static-top">
-        <div class="container">
-          <a class="navbar-brand" href="./index.html">OpenBeer DB</a>
+      <div class="navbar navbar-inverse navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="./index.html">Accueil</a>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>Édition</strong> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li class=""><a href="./breweries.html">Édition des brasseries</a></li>
                   <li class=""><a href="./styles.html">Édition des styles de bière</a></li>
+                  <li class=""><a href="./breweries.html">Édition des brasseries</a></li>
+                  <li class=""><a href="./brands.html">Édition des marques de bière</a></li>
                   <li class=""><a href="./beers.html">Édition des bières</a></li>
                 </ul>
               </li>
@@ -35,6 +34,9 @@
         </div>
       </div>
     </header>
+    <div class="container-fluid well">
+      <h2>OpenBeerDB <small>la plateforme collaborative des professionnels de la bière</small></h2>
+    </div>
     <div class="container ng-cloak">
       <section id="search" class="col-md-6">
         <form class="form ng-cloak" role="form" name="form" ng-show="selected">
@@ -52,6 +54,12 @@
             <div class="form-group">
               <label for="beer.brewery">Brasserie</label>
               <select id="beer.brewery" class="form-control" ng-model="beer.brewery" placeholder="Brasserie" ng-change="brewery(beer.brewery)" ng-options="brewery as brewery.name for brewery in breweries track by brewery.id" ng-required="true" required>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="beer.brand">Marque de bière</label>
+              <select id="beer.brand" class="form-control" ng-model="beer.brand" placeholder="Marque de bière" ng-change="brand(beer.brand)" ng-options="brand as brand.name for brand in brands track by brand.id" ng-disabled="!beer.brewery">
+                <option value="0">sans marque de bière</option>
               </select>
             </div>
             <div class="form-group">
@@ -81,29 +89,35 @@
         </nav>
         <ul class="list-group">
           <li class="list-group-item" ng-repeat="beer in beers">
-            <span class="label label-primary pull-right">{{beer.abv}}°</span>
-            <p class="list-group-item-heading">#{{beer.id}} {{beer.name}}</p>
+            <span class="label label-default pull-right">{{beer.abv}}°</span>
+            <p class="list-group-item-heading">#{{beer.id}} {{beer.name}} <span ng-show="beer.brand">({{beer.brand.name}})</span></p>
             <p class="list-group-item-text">
               <span aria-hidden="true" class="glyphicon glyphicon-map-marker" style="padding-right:0.5ex;"></span>
-              {{beer.brewery.name}} (#{{beer.brewery.id}}), 
-              <span ng-show="beer.brewery.address">{{beer.brewery.address}}, </span>{{beer.brewery.city}}, {{beer.brewery.country}}
+              {{beer.brewery.name}}
+              <br/>
+              <span ng-show="beer.brewery.address">{{beer.brewery.address}}, </span>
+              {{beer.brewery.city}}, {{beer.brewery.country}}
             </p>
-            <p class="list-group-item-text">
-              <span aria-hidden="true" ng-show="beer.styles.length > 0" class="glyphicon glyphicon-tags" style="padding-right:0.5ex;"></span>
+            <p class="list-group-item-text" ng-show="beer.styles.length > 0">
+              <span aria-hidden="true" class="glyphicon glyphicon-tags" style="padding-right:0.5ex;"></span>
               <span ng-repeat="style in beer.styles">{{style.name}}<span ng-hide="$last">, </span></span>
             </p>
             <p class="list-group-item-text text-right">
-              <button type="button" class="btn btn-default" ng-click="select(beer)"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+              <button type="button" class="btn btn-default" ng-click="select(beer)">Éditer</button>
             </p>
           </li>
         </ul>
         <div class="">
-          <button type="button" class="btn btn-info pull-right" ng-click="select()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+          <button type="button" class="btn btn-primary pull-right" ng-click="select()">Ajouter</button>
         </div>
       </section>
     </div>
-    <footer class="footer">
-      <br/>
+    <footer class="footer navbar navbar-default navbar-custom navbar-fixed-bottom">
+      <div class="container-fluid">
+        <div class="nav navbar-nav navbar-left">
+          <p class="text-muted">Copyright © 2015-2017. ICAM. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
   </body>
 </html>

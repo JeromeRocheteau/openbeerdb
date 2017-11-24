@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.jeromerocheteau.JdbcUpdateServlet;
 
-public class BeerDelete extends JdbcUpdateServlet<Integer> {
+public class BrandDelete extends JdbcUpdateServlet<Integer> {
 
-	private static final long serialVersionUID = 33L;
-
+	private static final long serialVersionUID = 13L;
+	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Integer count = this.doProcess(request);

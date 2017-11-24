@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.jeromerocheteau.JdbcQueryServlet;
 
-public class StyleSize extends JdbcQueryServlet<Integer> {
+public class Size extends JdbcQueryServlet<Integer> {
 
-	private static final long serialVersionUID = 14L;
+	private static final long serialVersionUID = 0L;
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {

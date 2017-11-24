@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>OpenBeerDB | Breweries</title>
+    <title>OpenBeerDB | Brands</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="./openbeerdb.css">
@@ -12,7 +12,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/i18n/angular-locale_fr-fr.js"></script>
-  <script type="text/javascript" src="./breweries.js"></script>  
+  <script type="text/javascript" src="./brands.js"></script>  
   <body ng-app="app" ng-controller="controller">
     <header>
       <div class="navbar navbar-inverse navbar-custom navbar-fixed-top">
@@ -41,23 +41,16 @@
       <section id="search" class="col-md-6">
         <form class="form ng-cloak" role="form" name="form" ng-show="selected">
           <fieldset>
-          <legend ng-show="creating">Édition d'une nouvelle brasserie</legend>
-          <legend ng-show="updating">Édition de la brasserie #{{brewery.id}}</legend>
+          <legend ng-show="creating">Édition d'une nouvelle marque de bière</legend>
+          <legend ng-show="updating">Édition de la marque de bière #{{brewery.id}}</legend>
             <div class="form-group">
-              <label for="brewery.name">Nom de la brasserie</label>
-              <input type="text" id="brewery.name" class="form-control" ng-model="brewery.name" placeholder="Nom" required ng-required="true" />
+              <label for="brand.name">Nom</label>
+              <input type="text" id="brand.name" class="form-control" ng-model="brand.name" placeholder="Nom" required ng-required="true" />
             </div>
             <div class="form-group">
-              <label for="brewery.address">Adresse de la brasserie</label>
-              <input type="text" id="brewery.address" class="form-control" ng-model="brewery.address" placeholder="Adresse" ng-required="false" />
-            </div>
-            <div class="form-group">
-              <label for="brewery.city">Ville de la brasserie</label>
-              <input type="text" id="brewery.city" class="form-control" ng-model="brewery.city" placeholder="Ville" required ng-required="true" />
-            </div>
-            <div class="form-group">
-              <label for="brewery.country">Pays de la brasserie</label>
-              <input type="text" id="brewery.country" class="form-control" ng-model="brewery.country" placeholder="Pays" required ng-required="true" />
+              <label for="brand.brewery">Brasserie</label>
+              <select id="brand.brewery" class="form-control" ng-model="brand.brewery" placeholder="Brasserie" ng-change="brewery(brand.brewery)" ng-options="brewery as brewery.name for brewery in breweries track by brewery.id" ng-required="true" required>
+              </select>
             </div>
             <div class="form-group pull-right">
                <button type="reset" class="btn btn-default" ng-click="clean()"><strong>Annuler</strong></button>
@@ -69,7 +62,7 @@
         </form>
       </section>
       <section id="results" class="col-md-6">
-        <h2>Brasseries <small>({{size}} éléments)</small></h2>
+        <h2>Marques de bière <small>({{size}} éléments)</small></h2>
         <nav aria-label="...">
           <ul class="pager">
             <li class="previous"><a class="btn btn-default" ng-click="first()"><span aria-hidden="true" class="glyphicon glyphicon-step-backward"></span> </a></li>
@@ -79,12 +72,16 @@
             <li class="next"><a class="btn btn-default" ng-click="next()"><span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span></a></li>
           </ul>
         </nav>
-        <ul class="list-group" ng-repeat="brewery in breweries">
+        <ul class="list-group" ng-repeat="brand in brands">
           <li class="list-group-item">
-            <p class="list-group-item-heading">#{{brewery.id}} {{brewery.name}}</p>
-            <p class="list-group-item-text"><span ng-show="brewery.address">{{brewery.address}}, </span>{{brewery.city}}, {{brewery.country}}</p>
+            <p class="list-group-item-heading">#{{brand.id}} {{brand.name}}</p>
+            <p class="list-group-item-text">
+              <span aria-hidden="true" class="glyphicon glyphicon-map-marker" style="padding-right:0.5ex;"></span>
+              {{brand.brewery.name}} (#{{brand.brewery.id}}), 
+              <span ng-show="beer.brewery.address">{{beer.brewery.address}}, </span>{{brand.brewery.city}}, {{brand.brewery.country}}
+            </p>
             <p class="list-group-item-text text-right">
-              <button type="button" class="btn btn-default" ng-click="select(brewery)">Éditer</button>
+              <button type="button" class="btn btn-default" ng-click="select(brand)">Éditer</button>
             </p>
           </li>
         </ul>

@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.icam.openbeerdb.entities.Beer;
 import fr.icam.openbeerdb.entities.Style;
 
 public class FeatureList extends StyleList {
@@ -17,15 +16,15 @@ public class FeatureList extends StyleList {
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		Beer beer = (Beer) request.getAttribute("beer");
 		List<Style> styles = this.doProcess(request);
-		beer.setStyles(styles);
+		request.setAttribute("styles", styles);
+		
 	}
 	
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
-		Beer beer = (Beer) request.getAttribute("beer");
-		statement.setInt(1, beer.getId());
+		Integer beerId = (Integer) request.getAttribute("beerId");
+		statement.setInt(1, beerId);
 	}
 	
 }

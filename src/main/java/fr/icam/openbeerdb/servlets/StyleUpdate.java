@@ -13,7 +13,7 @@ import com.github.jeromerocheteau.JdbcUpdateServlet;
 
 public class StyleUpdate extends JdbcUpdateServlet<Integer> {
 
-	private static final long serialVersionUID = 18L;
+	private static final long serialVersionUID = 22L;
 	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -23,17 +23,16 @@ public class StyleUpdate extends JdbcUpdateServlet<Integer> {
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
-		Integer id = Integer.valueOf(request.getParameter("id"));
+		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String category = request.getParameter("category");
 		statement.setString(1, name);
 		if (category == null) {
 			statement.setNull(2, Types.INTEGER);
 		} else {
-			Integer style = Integer.valueOf(Integer.valueOf(category));
-			statement.setInt(2, style);
+			statement.setInt(2, Integer.valueOf(category));
 		}
-		statement.setInt(3, id);
+		statement.setInt(3, Integer.valueOf(id));
 	}
 
 	@Override
