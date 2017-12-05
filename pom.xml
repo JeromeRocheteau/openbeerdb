@@ -3,7 +3,7 @@
   <groupId>fr.icam.openbeerdb</groupId>
   <artifactId>openbeerdb</artifactId>
   <version>1.0</version>
-  <name>OpenBeer DB</name>
+  <name>OpenBeerDB</name>
   <packaging>war</packaging>
   <properties>
     <encoding>UTF-8</encoding>

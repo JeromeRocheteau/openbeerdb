@@ -72,8 +72,7 @@ app.controller('controller', function ($scope, $http) {
 		.then(function onSuccess(response) {
 			init();
 			size();
-			$scope.offset = 0;
-			page();
+			$scope.last();
 		}, function onError(response) {
 
 		}); 
@@ -96,7 +95,9 @@ app.controller('controller', function ($scope, $http) {
 		.then(function onSuccess(response) {
 			init();
 			size();
-			$scope.offset = 0;
+            if (Math.ceil($scope.size / $scope.length) < $scope.offset) {
+			  $scope.offset = $scope.offset - $scope.length;
+		    }
 			page();
 		}, function onError(response) {
 
