@@ -15,25 +15,14 @@ import com.github.jeromerocheteau.JdbcQueryServlet;
 import fr.icam.openbeerdb.entities.Beer;
 import fr.icam.openbeerdb.entities.Brand;
 import fr.icam.openbeerdb.entities.Brewery;
-import fr.icam.openbeerdb.entities.Style;
 
 public class BeerList extends JdbcQueryServlet<List<Beer>> {
 
 	private static final long serialVersionUID = 34L;
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		List<Beer> beers = this.doProcess(request);
-		System.out.println("[OpenBeer DB] beer size = " + beers.size());
-		for (Beer beer : beers) {
-			System.out.println("[OpenBeer DB] beer id = " + beer.getId());
-			request.setAttribute("beerId", beer.getId());
-			this.doCall(request, response, "feature-list");
-			List<Style> styles = (List<Style>) request.getAttribute("styles");
-			System.out.println("[OpenBeer DB] style size = " + styles.size());
-			beer.setStyles(styles);
-		}
 		this.doWrite(beers, response.getWriter());
 	}
 	
@@ -45,11 +34,23 @@ public class BeerList extends JdbcQueryServlet<List<Beer>> {
 		List<Beer> beers = new LinkedList<Beer>();
 		while (resultSet.next()) {
 			Integer beerId  = resultSet.getInt("beerId");
+			String beerUser = resultSet.getString("beerUser");
 			String beerName = resultSet.getString("beerName");
 			Float abv = resultSet.getFloat("abv");
 			Integer brandId = resultSet.getInt("brandId");
+			if (resultSet.wasNull()) {
+				brandId = null;
+			}
+			String brandUser = resultSet.getString("brandUser");
+			if (resultSet.wasNull()) {
+				brandUser = null;
+			}
 			String brandName = resultSet.getString("brandName");
+			if (resultSet.wasNull()) {
+				brandName = null;
+			}
 			Integer breweryId = resultSet.getInt("breweryId");
+			String breweryUser = resultSet.getString("breweryUser");
 			String breweryName = resultSet.getString("breweryName");
 			String city = resultSet.getString("city");
 			String country = resultSet.getString("country");
@@ -57,9 +58,9 @@ public class BeerList extends JdbcQueryServlet<List<Beer>> {
 			if (resultSet.wasNull()) {
 				address = null;
 			}
-			Brewery brewery = new Brewery(breweryId, breweryName, address, city, country);
-			Brand brand = brandId == null ? null : new Brand(brandId, brandName, brewery);
-			Beer beer = new Beer(beerId, beerName, abv, brewery, brand);
+			Brewery brewery = new Brewery(breweryId, breweryUser, breweryName, address, city, country);
+			Brand brand = brandId == null ? null : new Brand(brandId, brandUser, brandName, brewery);
+			Beer beer = new Beer(beerId, beerUser, beerName, abv, brewery, brand);
 			beers.add(beer);
 		}
 		return beers;

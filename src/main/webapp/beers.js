@@ -8,6 +8,27 @@ app.filter('ceil', function() {
 
 app.controller('controller', function ($scope, $http) {
 
+	$scope.username = null;
+	$scope.grants = {};
+	$scope.grants.admin = false;
+
+	var check = function() {
+	  $http({method:'GET',url:'./username'})
+	  .then(function onSuccess(response) {
+	    $scope.username = response.data;
+	  }, function onError(response) {
+	    $scope.username = null;
+	  });
+	  $http({method:'GET',url:'./rolename'})
+	  .then(function onSuccess(response) {
+	    $scope.grants.admin = response.data;
+	  }, function onError(response) {
+	    $scope.grants.admin = false;
+	  });
+	}
+
+	check();
+	
 	var empty = {};
 
 	$scope.selected = false;
@@ -52,14 +73,15 @@ app.controller('controller', function ($scope, $http) {
 
 	$scope.create = function() {
 		var datacontent = "name=" + $scope.beer.name + "&abv=" + $scope.beer.abv + "&brewery=" + $scope.beer.brewery.id
-		+ ($scope.beer.brand ? "&brand=" + $scope.beer.brand.id : "")
-		+ ($scope.beer.styles ? $scope.beer.styles.reduce(function (a,b){ console.log(b); return a + "&style=" + b.id;},"") : "");
+		+ ($scope.beer.brand ? "&brand=" + $scope.beer.brand.id : "");
 		$http({method:'POST',url:'./beers/create',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
-			init();
-			size();
-			$scope.offset = 0;
-			page();
+		  var id = response.data;
+	      angular.forEach($scope.beer.styles, function (style) { feature(id, style.id); });
+		  init();
+		  size();
+		  $scope.offset = 0;
+		  page();
 		}, function onError(response) {
 
 		}); 
@@ -67,12 +89,13 @@ app.controller('controller', function ($scope, $http) {
 
 	$scope.update = function() {
 		var datacontent = "id=" + $scope.beer.id + "&name=" + $scope.beer.name + "&abv=" + $scope.beer.abv + "&brewery=" + $scope.beer.brewery.id
-		+ ($scope.beer.brand ? "&brand=" + $scope.beer.brand.id : "")
-		+ ($scope.beer.styles ? $scope.beer.styles.reduce(function (a,b){ console.log(b); return a + "&style=" + b.id;},"") : ""); 
+		+ ($scope.beer.brand ? "&brand=" + $scope.beer.brand.id : "");
 		$http({method:'POST',url:'./beers/update',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
-			init();
-			page();
+	      clear($scope.beer.id);
+	      angular.forEach($scope.beer.styles, function (style) { feature($scope.beer.id, style.id); });
+		  init();
+		  page();
 		}, function onError(response) {
 
 		}); 
@@ -82,10 +105,10 @@ app.controller('controller', function ($scope, $http) {
 		var datacontent = "id=" + $scope.beer.id; 
 		$http({method:'POST',url:'./beers/delete',data:datacontent,headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
-			init();
-			size();
-			$scope.offset = 0;
-			page();
+		  init();
+		  size();
+		  $scope.offset = 0;
+		  page();
 		}, function onError(response) {
 
 		}); 
@@ -116,12 +139,13 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	var page = function() {
-		$http({method:'GET',url:'./beers/page',params:{"offset":$scope.offset,"length":$scope.length}})
-		.then(function onSuccess(response) {
-			$scope.beers = response.data;
-		}, function onError(response) {
-			$scope.beers = [];
-		});
+	  $http({method:'GET',url:'./beers/page',params:{"offset":$scope.offset,"length":$scope.length}})
+	  .then(function onSuccess(response) {
+	    $scope.beers = response.data;
+	    angular.forEach($scope.beers, function (beer) { styles(beer); });
+	  }, function onError(response) {
+	    $scope.beers = [];
+	  });
 	}
 
 	$scope.prev = function() {
@@ -161,7 +185,32 @@ app.controller('controller', function ($scope, $http) {
 	    $scope.brands = [];
 	  });
 	}
+	
+	var styles = function(beer) {
+	  $http({method:'GET',url:'./features/list',params:{"beer":beer.id}})
+	  .then(function onSuccess(response) {
+	    beer.styles = response.data;
+	  }, function onError(response) {
+		  beer.styles = [];
+	  });
+	}
 
+	var clear = function(beer) {
+	  var datacontent = "beer=" + beer; 
+	  $http({method:'POST',url:'./features/delete',data:datacontent,headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+	  .then(function onSuccess(response) {
+	  }, function onError(response) {
+	  }); 
+	}
+	
+	var feature = function(beer, style) {
+	  var datacontent = "beer=" + beer + "&style=" + style; 
+	  $http({method:'POST',url:'./features/create',data:datacontent,headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+	  .then(function onSuccess(response) {
+	  }, function onError(response) {
+	  }); 
+	}
+	
 	$scope.brewery = function(brewery) {
 	  $scope.beer.brewery = brewery;
 	  brands(brewery);

@@ -18,36 +18,25 @@ public class BeerCreate extends JdbcUpdateServlet<Integer> {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Integer id = this.doProcess(request);
-		request.setAttribute("beerId", id);
-		this.setStyles(request, response);
 		this.doWrite(id, response.getWriter());
-	}
-
-	private void setStyles(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] styles = request.getParameterValues("style");
-		if (styles != null) {
-			for (String style : styles) {
-				Integer styleId = Integer.valueOf(style);
-				request.setAttribute("styleId", styleId);
-				this.doCall(request, response, "feature-create");
-			}
-		}
 	}
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
+		String user = request.getUserPrincipal().getName();
 		String name = request.getParameter("name");
 		String brewery = request.getParameter("brewery");
 		String brand = request.getParameter("brand");
 		String abv = request.getParameter("abv");
-		statement.setString(1, name);
-		statement.setInt(2, Integer.valueOf(brewery));
+		statement.setString(1, user);
+		statement.setString(2, name);
+		statement.setInt(3, Integer.valueOf(brewery));
 		if (brand == null) {
-			statement.setNull(3, Types.INTEGER);
+			statement.setNull(4, Types.INTEGER);
 		} else {
-			statement.setInt(3, Integer.valueOf(brand));
+			statement.setInt(4, Integer.valueOf(brand));
 		}
-		statement.setFloat(4, Float.valueOf(abv));
+		statement.setFloat(5, Float.valueOf(abv));
 	}
 
 	@Override

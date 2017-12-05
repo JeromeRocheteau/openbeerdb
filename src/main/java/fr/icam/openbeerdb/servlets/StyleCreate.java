@@ -23,13 +23,15 @@ public class StyleCreate extends JdbcUpdateServlet<Integer> {
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
+		String user = request.getUserPrincipal().getName();
 		String name = request.getParameter("name");
 		String category = request.getParameter("category");
-		statement.setString(1, name);
+		statement.setString(1, user);
+		statement.setString(2, name);
 		if (category == null) {
-			statement.setNull(2, Types.INTEGER);
+			statement.setNull(3, Types.INTEGER);
 		} else {
-			statement.setInt(2, Integer.valueOf(category));
+			statement.setInt(3, Integer.valueOf(category));
 		}
 	}
 

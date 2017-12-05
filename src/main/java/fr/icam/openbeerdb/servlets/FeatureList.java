@@ -17,14 +17,13 @@ public class FeatureList extends StyleList {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		List<Style> styles = this.doProcess(request);
-		request.setAttribute("styles", styles);
-		
+		this.doWrite(styles, response.getWriter());
 	}
 	
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
-		Integer beerId = (Integer) request.getAttribute("beerId");
-		statement.setInt(1, beerId);
+		Integer id = Integer.valueOf(request.getParameter("beer"));
+		statement.setInt(1, id);
 	}
 	
 }

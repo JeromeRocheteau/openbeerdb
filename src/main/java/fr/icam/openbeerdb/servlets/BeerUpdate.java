@@ -18,23 +18,7 @@ public class BeerUpdate extends JdbcUpdateServlet<Integer> {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		Integer count = this.doProcess(request);
-		this.setStyles(request, response);
 		this.doWrite(count, response.getWriter());
-	}
-
-
-	private void setStyles(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id = request.getParameter("id");
-		request.setAttribute("beerId", Integer.valueOf(id));
-		this.doCall(request, response, "feature-delete");
-		String[] styles = request.getParameterValues("style");
-		if (styles != null) {
-			for (String style : styles) {
-				Integer styleId = Integer.valueOf(style);
-				request.setAttribute("styleId", styleId);
-				this.doCall(request, response, "feature-create");
-			}
-		}
 	}
 
 	@Override

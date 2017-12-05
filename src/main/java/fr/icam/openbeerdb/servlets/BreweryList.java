@@ -32,6 +32,7 @@ public class BreweryList extends JdbcQueryServlet<List<Brewery>> {
 		List<Brewery> breweries = new LinkedList<Brewery>();
 		while (resultSet.next()) {
 			Integer id = resultSet.getInt("id");
+			String user = resultSet.getString("user");
 			String name = resultSet.getString("name");
 			String city = resultSet.getString("city");
 			String country = resultSet.getString("country");
@@ -39,7 +40,7 @@ public class BreweryList extends JdbcQueryServlet<List<Brewery>> {
 			if (resultSet.wasNull()) {
 				address = null;
 			}
-			Brewery brewery = new Brewery(id, name, address, city, country);
+			Brewery brewery = new Brewery(id, user, name, address, city, country);
 			breweries.add(brewery);
 		}
 		return breweries;

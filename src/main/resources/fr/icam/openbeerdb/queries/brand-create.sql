@@ -1,1 +1,1 @@
-insert into brands (name, brewery) values (?,?)
+insert into brands (user, name, brewery) values (?,?,?)

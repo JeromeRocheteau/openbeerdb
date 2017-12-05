@@ -8,6 +8,27 @@ app.filter('ceil', function() {
 
 app.controller('controller', function ($scope, $http) {
 
+	$scope.username = null;
+	$scope.grants = {};
+	$scope.grants.admin = false;
+
+	var check = function() {
+	  $http({method:'GET',url:'./username'})
+	  .then(function onSuccess(response) {
+	    $scope.username = response.data;
+	  }, function onError(response) {
+	    $scope.username = null;
+	  });
+	  $http({method:'GET',url:'./rolename'})
+	  .then(function onSuccess(response) {
+	    $scope.grants.admin = response.data;
+	  }, function onError(response) {
+	    $scope.grants.admin = false;
+	  });
+	}
+
+	check();
+	
 	var empty = {};
 
 	$scope.selected = false;

@@ -8,6 +8,27 @@ app.filter('ceil', function() {
 
 app.controller('controller', function ($scope, $http) {
 
+	$scope.username = null;
+	$scope.grants = {};
+	$scope.grants.admin = false;
+
+	var check = function() {
+	  $http({method:'GET',url:'./username'})
+	  .then(function onSuccess(response) {
+	    $scope.username = response.data;
+	  }, function onError(response) {
+	    $scope.username = null;
+	  });
+	  $http({method:'GET',url:'./rolename'})
+	  .then(function onSuccess(response) {
+	    $scope.grants.admin = response.data;
+	  }, function onError(response) {
+	    $scope.grants.admin = false;
+	  });
+	}
+
+	check();
+	
 	var empty = {};
 
 	$scope.selected = false;
@@ -49,6 +70,7 @@ app.controller('controller', function ($scope, $http) {
 		var datacontent = "name=" + $scope.style.name + ($scope.style.category ? "&category=" + $scope.style.category.id : "");
 		$http({method:'POST',url:'./styles/create',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
+			list();
 			init();
 			size();
 			$scope.offset = 0;
@@ -62,6 +84,7 @@ app.controller('controller', function ($scope, $http) {
 		var datacontent = "id=" + $scope.style.id + "&name=" + $scope.style.name + ($scope.style.category ? "&category=" + $scope.style.category.id : ""); 
 		$http({method:'POST',url:'./styles/update',data:datacontent,headers:{'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
+			list();
 			init();
 			page();
 		}, function onError(response) {
@@ -73,6 +96,7 @@ app.controller('controller', function ($scope, $http) {
 		var datacontent = "id=" + $scope.style.id; 
 		$http({method:'POST',url:'./styles/delete',data:datacontent,headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
 		.then(function onSuccess(response) {
+			list();
 			init();
 			size();
 			$scope.offset = 0;

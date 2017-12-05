@@ -22,14 +22,16 @@ public class BreweryCreate extends JdbcUpdateServlet<Integer> {
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
+		String user = request.getUserPrincipal().getName();
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
 		String city = request.getParameter("city");
 		String country = request.getParameter("country");
-		statement.setString(1, name);
-		statement.setString(2, address);
-		statement.setString(3, city);
-		statement.setString(4, country);
+		statement.setString(1, user);
+		statement.setString(2, name);
+		statement.setString(3, address);
+		statement.setString(4, city);
+		statement.setString(5, country);
 	}
 
 	@Override

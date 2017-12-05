@@ -36,8 +36,10 @@ public class BrandList extends JdbcQueryServlet<List<Brand>> {
 		List<Brand> brands = new LinkedList<Brand>();
 		while (resultSet.next()) {
 			Integer brandId = resultSet.getInt("brandId");
+			String brandUser = resultSet.getString("brandUser");
 			String brandName = resultSet.getString("brandName");
 			Integer breweryId = resultSet.getInt("breweryId");
+			String breweryUser = resultSet.getString("breweryUser");
 			String breweryName = resultSet.getString("breweryName");
 			String city = resultSet.getString("city");
 			String country = resultSet.getString("country");
@@ -45,8 +47,8 @@ public class BrandList extends JdbcQueryServlet<List<Brand>> {
 			if (resultSet.wasNull()) {
 				address = null;
 			}
-			Brewery brewery = new Brewery(breweryId, breweryName, address, city, country);
-			Brand brand = brandId == null ? null : new Brand(brandId, brandName, brewery);
+			Brewery brewery = new Brewery(breweryId, breweryUser, breweryName, address, city, country);
+			Brand brand = brandId == null ? null : new Brand(brandId, brandUser, brandName, brewery);
 			brands.add(brand);
 		}
 		return brands;

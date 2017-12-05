@@ -6,7 +6,9 @@
     <title>OpenBeerDB | Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./openbeerdb.css">
+    <link rel="shortcut icon" href="./fa-beer.ico">
   </head>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -25,10 +27,20 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>Édition</strong> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li class=""><a href="./styles.html">Édition des styles de bière</a></li>
+                  <li class=""><a href="./styles.html" ng-show="grants.admin">Édition des styles de bière</a></li>
                   <li class=""><a href="./breweries.html">Édition des brasseries</a></li>
                   <li class=""><a href="./brands.html">Édition des marques de bière</a></li>
                   <li class=""><a href="./beers.html">Édition des bières</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-show="username">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>Utilisateur</strong> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-header">{{username}}</li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="./exit"><span class="glyphicon glyphicon-off" aria-hidden="true">&nbsp;</span>Déconnexion</a></li>
                 </ul>
               </li>
             </ul>
@@ -37,7 +49,7 @@
       </div>
     </header>
     <div class="container-fluid well">
-      <h2>OpenBeerDB <small>la plateforme collaborative des professionnels de la bière</small></h2>
+      <h2><i class="fa fa-beer" aria-hidden="true">&nbsp;</i>OpenBeerDB <small>la plateforme collaborative des professionnels de la bière</small></h2>
     </div>
     <section id="content" class="container ng-cloak">
       <div class="row" style="margin-top:1em; margin-bottom:1em;">

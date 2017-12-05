@@ -1,1 +1,1 @@
-insert into features (beer, style) values (?,?)
+insert into features (beer, style, user) values (?,?,?)

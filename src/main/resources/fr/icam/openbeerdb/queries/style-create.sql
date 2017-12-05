@@ -1,1 +1,1 @@
-insert into styles (name, category) values (?,?)
+insert into styles (user, name, category) values (?,?,?)

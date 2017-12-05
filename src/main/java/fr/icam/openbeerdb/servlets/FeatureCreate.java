@@ -16,15 +16,18 @@ public class FeatureCreate extends JdbcUpdateServlet<Integer> {
 	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		this.doProcess(request);
+		Integer count = this.doProcess(request);
+		this.doWrite(count, response.getWriter());
 	}
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
-		Integer beerId = (Integer) request.getAttribute("beerId");
-		Integer styleId = (Integer) request.getAttribute("styleId");
-		statement.setInt(1, beerId);
-		statement.setInt(2, styleId);
+		String user = request.getUserPrincipal().getName();
+		Integer beer = Integer.valueOf(request.getParameter("beer"));
+		Integer style = Integer.valueOf(request.getParameter("style"));
+		statement.setInt(1, beer);
+		statement.setInt(2, style);
+		statement.setString(3, user);
 	}
 
 	@Override

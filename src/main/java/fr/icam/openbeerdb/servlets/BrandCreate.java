@@ -22,10 +22,12 @@ public class BrandCreate extends JdbcUpdateServlet<Integer> {
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
+		String user = request.getUserPrincipal().getName();
 		String name = request.getParameter("name");
 		String brewery = request.getParameter("brewery");
-		statement.setString(1, name);
-		statement.setInt(2, Integer.valueOf(brewery));
+		statement.setString(1, user);
+		statement.setString(2, name);
+		statement.setInt(3, Integer.valueOf(brewery));
 	}
 
 	@Override

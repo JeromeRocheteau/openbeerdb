@@ -32,17 +32,22 @@ public class StyleList extends JdbcQueryServlet<List<Style>> {
 		List<Style> items = new LinkedList<Style>();
 		while (resultSet.next()) {
 			Integer id = resultSet.getInt("id");
+			String user = resultSet.getString("user");
 			String name = resultSet.getString("name");
 			Integer styleId = resultSet.getInt("styleId");
 			if (resultSet.wasNull()) {
 				styleId = null;
 			}
+			String styleUser = resultSet.getString("styleUser");
+			if (resultSet.wasNull()) {
+				styleUser = null;
+			}
 			String styleName = resultSet.getString("styleName");
 			if (resultSet.wasNull()) {
 				styleName = null;
 			}
-			Style style = styleId == null ? null : new Style(styleId, styleName, null);
-			Style item = new Style(id, name, style);
+			Style style = styleId == null ? null : new Style(styleId, styleUser, styleName, null);
+			Style item = new Style(id, user, name, style);
 			items.add(item);
 		}
 		return items;
