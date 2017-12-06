@@ -58,7 +58,7 @@ app.controller('controller', function ($scope, $http) {
 	$scope.select = function(beer) {
 		if (beer) {
 			$scope.creating = false;
-			$scope.updating = true;
+			$scope.updating = beer.user === $scope.username;
 			$scope.beer = angular.copy(beer);
 			if ($scope.beer.brewery) {
 			  brands($scope.beer.brewery);

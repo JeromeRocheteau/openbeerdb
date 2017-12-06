@@ -56,7 +56,7 @@ app.controller('controller', function ($scope, $http) {
 	$scope.select = function(style) {
 		if (style) {
 			$scope.creating = false;
-			$scope.updating = true;
+			$scope.updating = style.user === $scope.username;
 			$scope.style = angular.copy(style);
 		} else {
 			$scope.creating = true;
