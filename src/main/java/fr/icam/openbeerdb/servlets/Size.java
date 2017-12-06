@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.jeromerocheteau.JdbcQueryServlet;
 
-public class BrewerySize extends JdbcQueryServlet<Integer> {
+public class Size extends JdbcQueryServlet<Integer> {
 
-	private static final long serialVersionUID = 9L;
+	private static final long serialVersionUID = 0L;
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -21,9 +21,7 @@ public class BrewerySize extends JdbcQueryServlet<Integer> {
 	}
 	
 	@Override
-	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
-		
-	}
+	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception { }
 
 	@Override
 	protected Integer doMap(HttpServletRequest request, ResultSet resultSet) throws Exception {

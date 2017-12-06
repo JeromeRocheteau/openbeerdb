@@ -2,36 +2,28 @@ package fr.icam.openbeerdb.servlets;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.github.jeromerocheteau.JdbcQueryServlet;
+import fr.icam.openbeerdb.entities.Style;
 
-public class BeerSize extends JdbcQueryServlet<Integer> {
+public class FeatureList extends StyleList {
 
-	private static final long serialVersionUID = 2L;
-
+	private static final long serialVersionUID = 20L;
+	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		Integer size = this.doProcess(request);
-		this.doWrite(size, response.getWriter());
+		List<Style> styles = this.doProcess(request);
+		this.doWrite(styles, response.getWriter());
 	}
 	
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
-		
-	}
-
-	@Override
-	protected Integer doMap(HttpServletRequest request, ResultSet resultSet) throws Exception {
-		int size = 0;
-		while (resultSet.next()) {
-			size = resultSet.getInt("size");
-		}
-		return size;
+		Integer id = Integer.valueOf(request.getParameter("beer"));
+		statement.setInt(1, id);
 	}
 	
 }

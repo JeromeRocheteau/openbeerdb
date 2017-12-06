@@ -12,7 +12,7 @@ import com.github.jeromerocheteau.JdbcUpdateServlet;
 
 public class BeerDelete extends JdbcUpdateServlet<Integer> {
 
-	private static final long serialVersionUID = 16L;
+	private static final long serialVersionUID = 33L;
 
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -22,8 +22,8 @@ public class BeerDelete extends JdbcUpdateServlet<Integer> {
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
-		Integer id = Integer.valueOf(request.getParameter("id"));
-		statement.setFloat(1, id);
+		String id = request.getParameter("id");
+		statement.setInt(1, Integer.valueOf(id));
 	}
 
 	@Override

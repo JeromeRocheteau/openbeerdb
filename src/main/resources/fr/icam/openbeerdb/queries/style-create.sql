@@ -1,0 +1,1 @@
+insert into styles (user, name, category) values (?,?,?)

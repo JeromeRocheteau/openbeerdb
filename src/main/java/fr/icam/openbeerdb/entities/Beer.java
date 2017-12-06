@@ -1,53 +1,30 @@
 package fr.icam.openbeerdb.entities;
 
-public class Beer {
+public class Beer extends Item {
 
-	private Integer id;
-	
 	private Brewery brewery;
 	
-	private String name;
+	private Brand brand;
 	
 	private Float abv;
-
-	public Integer getId() {
-		return id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
+	
 	public Brewery getBrewery() {
 		return brewery;
 	}
 
-	public void setBrewery(Brewery brewery) {
-		this.brewery = brewery;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public Brand getBrand() {
+		return brand;
 	}
 
 	public Float getAbv() {
 		return abv;
 	}
 
-	public void setAbv(Float abv) {
-		this.abv = abv;
-	}
-
-	public Beer(Integer id, Brewery brewery, String name, Float abv) {
-		super();
-		this.id = id;
+	public Beer(Integer id, String user, String name, Float abv, Brewery brewery, Brand brand) {
+		super(id, user, name);
 		this.brewery = brewery;
-		this.name = name;
 		this.abv = abv;
+		this.brand = brand;
 	}
 	
 }

@@ -3,6 +3,7 @@ package fr.icam.openbeerdb.servlets;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +13,7 @@ import com.github.jeromerocheteau.JdbcUpdateServlet;
 
 public class BeerCreate extends JdbcUpdateServlet<Integer> {
 
-	private static final long serialVersionUID = 14L;
+	private static final long serialVersionUID = 31L;
 	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -22,12 +23,20 @@ public class BeerCreate extends JdbcUpdateServlet<Integer> {
 
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
+		String user = request.getUserPrincipal().getName();
 		String name = request.getParameter("name");
-		Integer brewery = Integer.valueOf(request.getParameter("brewery"));
-		Float abv = Float.valueOf(request.getParameter("abv"));
-		statement.setString(1, name);
-		statement.setInt(2, brewery);
-		statement.setFloat(3, abv);
+		String brewery = request.getParameter("brewery");
+		String brand = request.getParameter("brand");
+		String abv = request.getParameter("abv");
+		statement.setString(1, user);
+		statement.setString(2, name);
+		statement.setInt(3, Integer.valueOf(brewery));
+		if (brand == null) {
+			statement.setNull(4, Types.INTEGER);
+		} else {
+			statement.setInt(4, Integer.valueOf(brand));
+		}
+		statement.setFloat(5, Float.valueOf(abv));
 	}
 
 	@Override

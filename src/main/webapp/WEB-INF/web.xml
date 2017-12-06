@@ -25,7 +25,86 @@
   <listener>
     <listener-class>com.github.jeromerocheteau.JdbcListener</listener-class>
   </listener>
+  
+  <filter>
+    <filter-name>jdbc-filter</filter-name>
+    <filter-class>com.github.jeromerocheteau.JdbcFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>jdbc-filter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 
+  <filter>
+    <filter-name>brewery-filter</filter-name>
+    <filter-class>fr.icam.openbeerdb.filters.PrincipalFilter</filter-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/brewery-item.sql</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>brewery-filter</filter-name>
+    <url-pattern>/breweries/update</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>brewery-filter</filter-name>
+    <url-pattern>/breweries/delete</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>brand-filter</filter-name>
+    <filter-class>fr.icam.openbeerdb.filters.PrincipalFilter</filter-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/brand-item.sql</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>brand-filter</filter-name>
+    <url-pattern>/brands/update</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>brand-filter</filter-name>
+    <url-pattern>/brands/delete</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>beer-filter</filter-name>
+    <filter-class>fr.icam.openbeerdb.filters.PrincipalFilter</filter-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/beer-item.sql</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>beer-filter</filter-name>
+    <url-pattern>/beers/update</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>beer-filter</filter-name>
+    <url-pattern>/beers/delete</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>style-filter</filter-name>
+    <filter-class>fr.icam.openbeerdb.filters.PrincipalFilter</filter-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/style-item.sql</param-value>
+    </init-param>
+  </filter>
+  <filter-mapping>
+    <filter-name>style-filter</filter-name>
+    <url-pattern>/styles/update</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>style-filter</filter-name>
+    <url-pattern>/styles/delete</url-pattern>
+  </filter-mapping>
+
+  <!-- breweries -->
+  
   <servlet>
     <servlet-name>brewery-list</servlet-name>
     <servlet-class>fr.icam.openbeerdb.servlets.BreweryList</servlet-class>
@@ -41,7 +120,7 @@
 
   <servlet>
     <servlet-name>brewery-size</servlet-name>
-    <servlet-class>fr.icam.openbeerdb.servlets.BrewerySize</servlet-class>
+    <servlet-class>fr.icam.openbeerdb.servlets.Size</servlet-class>
     <init-param>
       <param-name>sql-query</param-name>
       <param-value>/fr/icam/openbeerdb/queries/brewery-size.sql</param-value>
@@ -103,10 +182,172 @@
     <servlet-name>brewery-delete</servlet-name>
     <url-pattern>/breweries/delete</url-pattern>
   </servlet-mapping>
+
+  <!-- brands -->
   
   <servlet>
+    <servlet-name>brand-list</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BrandList</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/brand-list.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>brand-list</servlet-name>
+    <url-pattern>/brands/list</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>brand-size</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.Size</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/brand-size.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>brand-size</servlet-name>
+    <url-pattern>/brands/size</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>brand-page</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BrandPage</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/brand-page.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>brand-page</servlet-name>
+    <url-pattern>/brands/page</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>brand-create</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BrandCreate</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/brand-create.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>brand-create</servlet-name>
+    <url-pattern>/brands/create</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>brand-update</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BrandUpdate</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/brand-update.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>brand-update</servlet-name>
+    <url-pattern>/brands/update</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>brand-delete</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.BrandDelete</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/brand-delete.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>brand-delete</servlet-name>
+    <url-pattern>/brands/delete</url-pattern>
+  </servlet-mapping>
+  
+  <!-- styles -->
+  
+  <servlet>
+    <servlet-name>style-list</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.StyleList</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/style-list.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>style-list</servlet-name>
+    <url-pattern>/styles/list</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>style-size</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.Size</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/style-size.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>style-size</servlet-name>
+    <url-pattern>/styles/size</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>style-page</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.StylePage</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/style-page.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>style-page</servlet-name>
+    <url-pattern>/styles/page</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>style-create</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.StyleCreate</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/style-create.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>style-create</servlet-name>
+    <url-pattern>/styles/create</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>style-update</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.StyleUpdate</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/style-update.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>style-update</servlet-name>
+    <url-pattern>/styles/update</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>style-delete</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.StyleDelete</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/style-delete.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>style-delete</servlet-name>
+    <url-pattern>/styles/delete</url-pattern>
+  </servlet-mapping>
+
+  <!-- beers -->
+
+  <servlet>
     <servlet-name>beer-size</servlet-name>
-    <servlet-class>fr.icam.openbeerdb.servlets.BeerSize</servlet-class>
+    <servlet-class>fr.icam.openbeerdb.servlets.Size</servlet-class>
     <init-param>
       <param-name>sql-query</param-name>
       <param-value>/fr/icam/openbeerdb/queries/beer-size.sql</param-value>
@@ -169,6 +410,49 @@
     <url-pattern>/beers/delete</url-pattern>
   </servlet-mapping>
 
+  <!-- styles & beers -->
+
+  <servlet>
+    <servlet-name>feature-list</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.FeatureList</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/feature-list.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>feature-list</servlet-name>
+    <url-pattern>/features/list</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>feature-create</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.FeatureCreate</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/feature-create.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>feature-create</servlet-name>
+    <url-pattern>/features/create</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>feature-delete</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.FeatureDelete</servlet-class>
+    <init-param>
+      <param-name>sql-query</param-name>
+      <param-value>/fr/icam/openbeerdb/queries/feature-delete.sql</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>feature-delete</servlet-name>
+    <url-pattern>/features/delete</url-pattern>
+  </servlet-mapping>
+
+  <!-- stats -->
+
   <servlet>
     <servlet-name>stats-global</servlet-name>
     <servlet-class>fr.icam.openbeerdb.servlets.StatsGlobal</servlet-class>
@@ -204,5 +488,115 @@
     <servlet-name>stats</servlet-name>
     <url-pattern>/stats</url-pattern>
   </servlet-mapping>
+
+  <!-- auth -->
+
+  <servlet>
+    <servlet-name>session-invalidate</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.SessionInvalidate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>session-invalidate</servlet-name>
+    <url-pattern>/exit</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>principal-name</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.PrincipalName</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>principal-name</servlet-name>
+    <url-pattern>/username</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>principal-role</servlet-name>
+    <servlet-class>fr.icam.openbeerdb.servlets.PrincipalRole</servlet-class>
+    <init-param>
+      <param-name>role</param-name>
+      <param-value>CN=GESTION I3,OU=ETUDIANTS,OU=Groupe-Universel,OU=Nantes,DC=nantes,DC=icam,DC=local</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>principal-role</servlet-name>
+    <url-pattern>/rolename</url-pattern>
+  </servlet-mapping>
+
+ <!-- security -->
+
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>public</web-resource-name>
+      <url-pattern>/index.html</url-pattern>
+      <url-pattern>/index.js</url-pattern>
+      <url-pattern>/stats</url-pattern>
+      <url-pattern>/username</url-pattern>
+      <url-pattern>/rolename</url-pattern>
+      <url-pattern>/exit</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>*</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+   <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>protected</web-resource-name>
+      <url-pattern>/breweries.html</url-pattern>
+      <url-pattern>/breweries.js</url-pattern>
+      <url-pattern>/brands.html</url-pattern>
+      <url-pattern>/brands.js</url-pattern>
+      <url-pattern>/styles.html</url-pattern>
+      <url-pattern>/styles.js</url-pattern>
+      <url-pattern>/beers.html</url-pattern>
+      <url-pattern>/beers.js</url-pattern>
+      <url-pattern>/breweries/size</url-pattern>
+      <url-pattern>/breweries/page</url-pattern>
+      <url-pattern>/breweries/list</url-pattern>
+      <url-pattern>/breweries/create</url-pattern>
+      <url-pattern>/breweries/update</url-pattern>
+      <url-pattern>/breweries/delete</url-pattern>
+      <url-pattern>/brands/size</url-pattern>
+      <url-pattern>/brands/page</url-pattern>
+      <url-pattern>/brands/list</url-pattern>
+      <url-pattern>/brands/create</url-pattern>
+      <url-pattern>/brands/update</url-pattern>
+      <url-pattern>/brands/delete</url-pattern>
+      <url-pattern>/styles/size</url-pattern>
+      <url-pattern>/styles/page</url-pattern>
+      <url-pattern>/styles/list</url-pattern>
+      <url-pattern>/styles/create</url-pattern>
+      <url-pattern>/styles/update</url-pattern>
+      <url-pattern>/styles/delete</url-pattern>
+      <url-pattern>/beers/size</url-pattern>
+      <url-pattern>/beers/page</url-pattern>
+      <url-pattern>/beers/create</url-pattern>
+      <url-pattern>/beers/update</url-pattern>
+      <url-pattern>/beers/delete</url-pattern>
+      <url-pattern>/features/list</url-pattern>
+      <url-pattern>/features/create</url-pattern>
+      <url-pattern>/features/delete</url-pattern>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>CN=I3,OU=PROMOS,OU=ETUDIANTS,OU=Groupe-Universel,OU=Nantes,DC=nantes,DC=icam,DC=local</role-name>
+      <role-name>CN=GESTION I3,OU=ETUDIANTS,OU=Groupe-Universel,OU=Nantes,DC=nantes,DC=icam,DC=local</role-name>
+    </auth-constraint>
+  </security-constraint>
+
+  <security-role>
+    <role-name>CN=I3,OU=PROMOS,OU=ETUDIANTS,OU=Groupe-Universel,OU=Nantes,DC=nantes,DC=icam,DC=local</role-name>
+  </security-role>
+  
+  <security-role>
+    <role-name>CN=GESTION I3,OU=ETUDIANTS,OU=Groupe-Universel,OU=Nantes,DC=nantes,DC=icam,DC=local</role-name>
+  </security-role>
+
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+      <form-login-page>/security/index.html</form-login-page>
+      <form-error-page>/security/failure.html</form-error-page>
+    </form-login-config>
+  </login-config>
 
 </web-app>

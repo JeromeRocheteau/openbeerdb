@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OpenBeerDB</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./openbeerdb.css">
+    <link rel="shortcut icon" href="./fa-beer.ico">
+  </head>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/i18n/angular-locale_fr-fr.js"></script>
+  <script type="text/javascript" src="./styles.js"></script>  
+  <body ng-app="app" ng-controller="controller">
+    <header>
+      <div class="navbar navbar-inverse navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="./index.html">Accueil</a>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-left">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>Édition</strong> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li class=""><a href="./styles.html" ng-show="grants.admin">Édition des styles de bière</a></li>
+                  <li class=""><a href="./breweries.html">Édition des brasseries</a></li>
+                  <li class=""><a href="./brands.html">Édition des marques de bière</a></li>
+                  <li class=""><a href="./beers.html">Édition des bières</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right" ng-show="username">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><strong>Utilisateur</strong> <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-header">{{username}}</li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="./exit"><span class="glyphicon glyphicon-off" aria-hidden="true">&nbsp;</span>Déconnexion</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="container-fluid well">
+      <h2><i class="fa fa-beer" aria-hidden="true">&nbsp;</i>OpenBeerDB <small>la plateforme collaborative des professionnels de la bière</small></h2>
+    </div>
+    <div class="container ng-cloak">
+      <section id="search" class="col-md-6">
+        <form class="form ng-cloak" role="form" name="form" ng-show="selected">
+          <fieldset>
+          <legend ng-show="creating">Édition d'un nouveau style de bière</legend>
+          <legend ng-show="updating">Édition du style de bière #{{style.id}}</legend>
+            <div class="form-group">
+              <label for="style.name">Nom</label>
+              <input type="text" id="style.name" class="form-control" ng-model="style.name" placeholder="Nom" ng-required="true" required />
+            </div>
+            <div class="form-group">
+              <label for="style.category">Catégorie</label>
+              <select id="style.category" class="form-control" ng-model="style.category" placeholder="Catégorie" ng-change="category(style.category)" ng-options="category as category.name for category in categories track by category.id">
+              </select>
+            </div>
+            <div class="form-group pull-right">
+               <button type="reset" class="btn btn-default" ng-click="clean()"><strong>Annuler</strong></button>
+               <button type="submit" class="btn btn-danger" ng-click="form.$valid && remove()" ng-disabled="form.$invalid" ng-show="updating"><strong>Supprimer</strong></button>
+               <button type="submit" class="btn" ng-click="form.$valid && update()" ng-disabled="form.$invalid" ng-show="updating"><strong>Modifier</strong></button>
+               <button type="submit" class="btn" ng-click="form.$valid && create()" ng-disabled="form.$invalid" ng-show="creating"><strong>Ajouter</strong></button>
+             </div>
+          </fieldset>
+        </form>
+      </section>
+      <section id="results" class="col-md-6">
+        <h2>Styles de bière <small>({{size}} éléments)</small></h2>
+        <nav aria-label="...">
+          <ul class="pager">
+            <li class="previous"><a class="btn btn-default" ng-click="first()"><span aria-hidden="true" class="glyphicon glyphicon-step-backward"></span> </a></li>
+            <li class="previous"><a class="btn btn-default" ng-click="prev()"><span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span></a></li>
+            <li ng-show="size > 0">{{(offset / length) + 1 | ceil}} / {{size / length | ceil}}</li>
+            <li class="next"><a class="btn btn-default" ng-click="last()"><span aria-hidden="true" class="glyphicon glyphicon-step-forward"></span></a></li>
+            <li class="next"><a class="btn btn-default" ng-click="next()"><span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span></a></li>
+          </ul>
+        </nav>
+        <ul class="list-group">
+          <li class="list-group-item" ng-repeat="style in styles">
+            <p class="list-group-item-heading">#{{style.id}} {{style.name}}</p>
+            <p class="list-group-item-text" ng-show="style.category">
+              <span aria-hidden="true" class="glyphicon glyphicon-tag" style="padding-right:0.5ex;"></span>
+              {{style.category.name}}
+            </p>
+            <p class="list-group-item-text">
+              <span aria-hidden="true" class="glyphicon glyphicon-user" style="padding-right:0.5ex;"></span>
+              {{style.user}}
+            </p>
+            <p class="list-group-item-text text-right">
+              <button type="button" class="btn btn-default" ng-click="select(style)">Éditer</button>
+            </p>
+          </li>
+        </ul>
+        <div class="">
+          <button type="button" class="btn btn-primary pull-right" ng-click="select()">Ajouter</button>
+        </div>
+      </section>
+    </div>
+    <footer class="footer navbar navbar-default navbar-custom navbar-fixed-bottom">
+      <div class="container-fluid">
+        <div class="nav navbar-nav navbar-left">
+          <p class="text-muted">Copyright © 2015-2017. ICAM. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

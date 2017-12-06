@@ -8,6 +8,27 @@ app.filter('ceil', function() {
 
 app.controller('controller', function ($scope, $http) {
 
+	$scope.username = null;
+	$scope.grants = {};
+	$scope.grants.admin = false;
+
+	var check = function() {
+	  $http({method:'GET',url:'./username'})
+	  .then(function onSuccess(response) {
+	    $scope.username = response.data;
+	  }, function onError(response) {
+	    $scope.username = null;
+	  });
+	  $http({method:'GET',url:'./rolename'})
+	  .then(function onSuccess(response) {
+	    $scope.grants.admin = response.data;
+	  }, function onError(response) {
+	    $scope.grants.admin = false;
+	  });
+	}
+
+	check();
+	
 	var empty = {};
 
 	$scope.selected = false;
@@ -34,7 +55,7 @@ app.controller('controller', function ($scope, $http) {
 	$scope.select = function(brewery) {
 		if (brewery) {
 			$scope.creating = false;
-			$scope.updating = true;
+			$scope.updating = brewery.user === $scope.username;
 			$scope.brewery = angular.copy(brewery);
 		} else {
 			$scope.creating = true;
@@ -50,8 +71,7 @@ app.controller('controller', function ($scope, $http) {
 		.then(function onSuccess(response) {
 			init();
 			size();
-			$scope.offset = 0;
-			page();
+			$scope.last();
 		}, function onError(response) {
 
 		}); 
@@ -74,7 +94,9 @@ app.controller('controller', function ($scope, $http) {
 		.then(function onSuccess(response) {
 			init();
 			size();
-			$scope.offset = 0;
+			if (Math.ceil($scope.size / $scope.length) < $scope.offset) {
+			  $scope.offset = $scope.offset - $scope.length;
+		    }
 			page();
 		}, function onError(response) {
 
@@ -114,13 +136,17 @@ app.controller('controller', function ($scope, $http) {
 	}
 
 	$scope.first = function() {
-		$scope.offset = 0;
-		page();
+		if ($scope.offset > 0) {
+			$scope.offset = 0;
+			page();
+		}
 	}
 
 	$scope.last = function() {
-		$scope.offset = Math.floor(($scope.size - 1) / $scope.length) * $scope.length;
-		page();
+		if ($scope.offset < Math.floor(($scope.size - 1) / $scope.length) * $scope.length) {
+			$scope.offset = Math.floor(($scope.size - 1) / $scope.length) * $scope.length;
+			page();
+		}
 	}
 
 	init();

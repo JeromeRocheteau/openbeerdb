@@ -16,7 +16,7 @@ import fr.icam.openbeerdb.entities.Stats;
 
 public class StatsGlobal extends JdbcQueryServlet<List<Stats>> {
 
-	private static final long serialVersionUID = 17L;
+	private static final long serialVersionUID = 12L;
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -34,10 +34,7 @@ public class StatsGlobal extends JdbcQueryServlet<List<Stats>> {
 			String label = resultSet.getString("label");
 			Integer count = resultSet.getInt("count");
 			Float average = resultSet.getFloat("average");
-			Stats dashboard = new Stats();
-			dashboard.setLabel(label);
-			dashboard.setCount(count);
-			dashboard.setAverage(average);
+			Stats dashboard = new Stats(label, count, average);
 			dashboards.add(dashboard);
 		}
 		return dashboards;

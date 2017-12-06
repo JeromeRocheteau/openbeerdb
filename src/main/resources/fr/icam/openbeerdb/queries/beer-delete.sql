@@ -1,1 +1,2 @@
-delete from beers where id = ?
+delete from beers 
+where id = ?

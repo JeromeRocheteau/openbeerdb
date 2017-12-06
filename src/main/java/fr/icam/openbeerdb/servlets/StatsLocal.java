@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class StatsLocal extends StatsGlobal {
 
-	private static final long serialVersionUID = 18L;
+	private static final long serialVersionUID = 11L;
 	
 	@Override
 	protected void doFill(PreparedStatement statement, HttpServletRequest request) throws Exception {
