@@ -73,6 +73,7 @@ app.controller('controller', function ($scope, $http) {
 			init();
 			size();
 			$scope.last();
+			page();
 		}, function onError(response) {
 
 		}); 
