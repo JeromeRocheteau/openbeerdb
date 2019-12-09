@@ -514,7 +514,7 @@
     <servlet-class>fr.icam.openbeerdb.servlets.PrincipalRole</servlet-class>
     <init-param>
       <param-name>role</param-name>
-      <param-value>CN=GESTION I3,OU=ETUDIANTS,OU=Groupe-Universel,OU=Nantes,DC=nantes,DC=icam,DC=local</param-value>
+      <param-value>CN=COLLABORATEURS NANTES,OU=Groupe-Universel,OU=Nantes,DC=nantes,DC=icam,DC=local</param-value>
     </init-param>
   </servlet>
   <servlet-mapping>
@@ -578,17 +578,23 @@
       <url-pattern>/features/delete</url-pattern>
     </web-resource-collection>
     <auth-constraint>
-      <role-name>CN=I3,OU=PROMOS,OU=ETUDIANTS,OU=Groupe-Universel,OU=Nantes,DC=nantes,DC=icam,DC=local</role-name>
-      <role-name>CN=GESTION I3,OU=ETUDIANTS,OU=Groupe-Universel,OU=Nantes,DC=nantes,DC=icam,DC=local</role-name>
+      <role-name>CN=integre.nantes@2022.icam.fr,OU=2022,OU=Etudiants Nantes,OU=Etudiants,OU=ICAM,DC=icam,DC=local</role-name>
+      <role-name>CN=integre.nantes@2021.icam.fr,OU=2021,OU=Etudiants Nantes,OU=Etudiants,OU=ICAM,DC=icam,DC=local</role-name>
+      <role-name>CN=integre.nantes@2020.icam.fr,OU=2020,OU=Etudiants Nantes,OU=Etudiants,OU=ICAM,DC=icam,DC=local</role-name>
+      <role-name>CN=COLLABORATEURS NANTES,OU=Groupe-Universel,OU=Nantes,DC=nantes,DC=icam,DC=local</role-name>
     </auth-constraint>
   </security-constraint>
 
   <security-role>
-    <role-name>CN=I3,OU=PROMOS,OU=ETUDIANTS,OU=Groupe-Universel,OU=Nantes,DC=nantes,DC=icam,DC=local</role-name>
+    <role-name>CN=integre.nantes@2021.icam.fr,OU=2021,OU=Etudiants Nantes,OU=Etudiants,OU=ICAM,DC=icam,DC=local</role-name>
+  </security-role>
+
+  <security-role>
+    <role-name>CN=integre.nantes@2020.icam.fr,OU=2020,OU=Etudiants Nantes,OU=Etudiants,OU=ICAM,DC=icam,DC=local</role-name>
   </security-role>
   
   <security-role>
-    <role-name>CN=GESTION I3,OU=ETUDIANTS,OU=Groupe-Universel,OU=Nantes,DC=nantes,DC=icam,DC=local</role-name>
+    <role-name>CN=COLLABORATEURS NANTES,OU=Groupe-Universel,OU=Nantes,DC=nantes,DC=icam,DC=local</role-name>
   </security-role>
 
   <login-config>

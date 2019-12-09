@@ -1,0 +1,70 @@
+@startuml
+
+!include openbeerdb-skin-parameters.uml
+
+usecase (view\nelements) as uc2 << generic >>
+usecase (edit\nan element) as uc3 << generic >>
+
+usecase (view\nstyles) as uc21
+usecase (view\nbreweries) as uc22
+usecase (view\nbrands) as uc23
+usecase (view\nbeers) as uc24
+
+usecase (create\nan element) as uc31 << generic >>
+usecase (update\nan element) as uc32 << generic >>
+usecase (delete\nan element) as uc33 << generic >>
+
+usecase (create\na beer) as uc314
+usecase (update\na beer) as uc324
+usecase (delete\na beer) as uc334
+
+usecase (insert\nstyles) as uc41 << embed >>
+usecase (remove\nstyles) as uc42 << embed >>
+
+note "only editors that are element owners\ncan update or delete their elements." as n1
+
+(uc32) .. n1
+(uc33) .. n1
+
+actor :user: as user
+
+:user: -left-> (uc2) 
+:user: -right-> (uc3)
+
+(uc2) <-- (uc21)
+(uc2) <-- (uc22)
+(uc2) <-- (uc23)
+(uc2) <-- (uc24)
+
+(uc3) <-- (uc31)
+(uc3) <-- (uc32)
+(uc3) <-- (uc33)
+
+(uc31) <-- (uc314)
+
+(uc32) <-- (uc324)
+(uc33) <-- (uc334)
+
+(uc314) <-- (uc41)
+(uc324) <-- (uc41)
+(uc324) <-- (uc42)
+(uc334) <-- (uc42)
+
+scale 1024 width
+
+@enduml
+
+:editor: -right-> (uc1)
+
+usecase (authenticate) as uc1
+
+usecase (create\na style) as uc311
+usecase (create\na brewery) as uc312
+usecase (create\na brand) as uc313
+
+(uc1) <-- (uc3) : include
+
+(uc31) <-- (uc311)
+(uc31) <-- (uc312)
+(uc31) <-- (uc313)
+

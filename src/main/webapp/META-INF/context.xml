@@ -1,11 +1,11 @@
 <Context>
 
   <Realm className="org.apache.catalina.realm.JNDIRealm" 
-    connectionURL="ldap://172.21.1.104:389"
+    connectionURL="ldap://83.145.100.10:389"
     authentication="simple"
     referrals="follow"
-    connectionName="jerome.rocheteau@icam.fr"
-    connectionPassword=""
+    connectionName="acces.ad"
+    connectionPassword="Fc33#*Jf"
     userSearch="(mail={0})"
     userBase="OU=ICAM,DC=icam,DC=local"
     userSubtree="true"

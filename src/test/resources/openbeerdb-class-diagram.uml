@@ -1,0 +1,65 @@
+@startuml
+
+!include openbeerdb-skin-parameters.uml
+
+interface Item {
+  String owner
+}
+
+enum Type {
+  Brewery
+  Brand
+  Beer
+  Style
+}
+
+abstract class Element {
+  Long id
+  String name
+}
+
+class Brewery {
+  String address
+  String city
+  String country
+}
+
+class Brand {
+}
+
+class Beer {
+  Float abv
+}
+
+class Style {
+}
+
+class Feature { 
+}
+
+Beer   -u-> Brewery : brewery
+Beer   .l.> Brand : brand
+Brand  -u-> Brewery : brewery
+
+
+Item <|-l- Element
+Item <|-- Feature
+
+Element <|-- Brewery
+Element <|-- Brand
+Element <|-- Beer
+Element <|-- Style
+
+Feature -l-> Beer : beer
+Feature -r-> Style : style
+
+Style ..> Style : category
+
+Element -l-> Type : type
+
+hide empty members
+hide empty methods
+
+scale 1024 width
+
+@enduml 

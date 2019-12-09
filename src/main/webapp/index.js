@@ -13,13 +13,13 @@ app.controller('controller', function ($scope, $http) {
 	$scope.grants.admin = false;
 
 	var check = function() {
-	  $http({method:'GET',url:'./username'})
+	  $http({method:'GET',url:'/openbeerdb/username'})
 	  .then(function onSuccess(response) {
 	    $scope.username = response.data;
 	  }, function onError(response) {
 	    $scope.username = null;
 	  });
-	  $http({method:'GET',url:'./rolename'})
+	  $http({method:'GET',url:'/openbeerdb/rolename'})
 	  .then(function onSuccess(response) {
 	    $scope.grants.admin = response.data;
 	  }, function onError(response) {
@@ -45,7 +45,7 @@ app.controller('controller', function ($scope, $http) {
 	var stats = function() {
 		var level = $scope.controls.filtered;
 		var filter = level == 0 ? null : $scope.controls.filters[level - 1];
-		$http({method:'GET',url:'./stats',params:{"level":level,"filter":filter}})
+		$http({method:'GET',url:'/openbeerdb/stats',params:{"level":level,"filter":filter}})
 		.then(function onSuccess(response) {
 			$scope.items = response.data;
 			process();

@@ -18,9 +18,9 @@
         <artifactId>tomcat7-maven-plugin</artifactId>
         <version>2.1</version>
         <configuration>
-          <url>http://172.21.1.18/manager/text</url>
-          <username>manager</username>
-          <password>script</password>
+          <url>http://app.icam.fr:8080/manager/text</url>
+          <username>jerome</username>
+          <password>louR8jay</password>
           <path>/${project.build.finalName}</path>
         </configuration>
       </plugin>
@@ -43,8 +43,8 @@
   <repositories>
     <repository>
       <id>icam</id>
-      <name>Icam Maven repository</name>
-      <url>http://172.21.50.1/maven/repository</url>
+      <name>Jay Maven repository</name>
+      <url>http://jerome.rocheteau.free.fr/maven/repository</url>
     </repository>
   </repositories>
 </project>

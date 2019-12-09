@@ -1,0 +1,75 @@
+@startuml
+
+skinparam roundcorner 10
+skinparam backgroundColor transparent
+
+skinparam class {
+  ArrowColor Black
+  AttributeFontColor Black
+  AttributeFontName Nunito
+  AttributeFontSize 10
+  AttributeFontStyle Normal
+  AttributeIconSize 8
+  BackgroundColor WhiteSmoke
+  BorderColor LightGray
+  BorderThickness 0
+  FontColor Black
+  FontName Nunito
+  FontSize 10
+  FontStyle Clear
+  HeaderBackgroundColor WhiteSmoke
+  StereotypeFontColor WhiteSmoke
+  StereotypeFontName Nunito
+  StereotypeFontSize 8
+  StereotypeFontStyle Normal
+}
+
+skinparam StereotypeABackgroundColor DodgerBlue
+skinparam StereotypeCBackgroundColor RoyalBlue
+skinparam StereotypeEBackgroundColor CornflowerBlue
+skinparam StereotypeIBackgroundColor LightSkyBlue
+
+skinparam usecase {
+  ArrowColor Black
+  BackgroundColor RoyalBlue
+  BorderColor RoyalBlue
+  FontColor White
+  FontName Nunito
+  FontSize 10
+  FontStyle Normal
+  StereotypeFontColor Black
+  StereotypeFontName Nunito
+  StereotypeFontSize 8
+  StereotypeFontStyle Normal
+  BackgroundColor<< generic >> WhiteSmoke
+  BorderColor<< generic >> WhiteSmoke
+  FontColor<< generic >> Navy
+  BackgroundColor<< embed >> CornflowerBlue
+  BorderColor<< embed >> CornflowerBlue
+  FontColor<< embed >> WhiteSmoke
+}
+
+skinparam actor {
+  BackgroundColor RoyalBlue
+  BorderColor DimGray
+  FontColor Black
+  FontName Nunito
+  FontSize 10
+  FontStyle Normal
+  StereotypeFontColor WhiteSmoke
+  StereotypeFontName Nunito
+  StereotypeFontSize 0
+  StereotypeFontStyle Normal
+}
+
+skinparam note {
+  BackgroundColor LightSkyBlue
+  BorderColor Black
+  BorderThickness 0
+  FontColor Black
+  FontName Nunito
+  FontSize 8
+  FontStyle Normal
+}
+
+@enduml
